@@ -463,6 +463,15 @@
             border: 1px solid #f5c6cb;
         }
 
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
         .quick-actions {
             display: flex;
             gap: 10px;
@@ -489,6 +498,98 @@
         .quick-action.active {
             background: rgba(102, 126, 234, 0.3);
             color: #4a5ad6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .template-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .template-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .template-card .template-text {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #555;
+            border: 1px solid #e9ecef;
         }
 
         @media (max-width: 768px) {
@@ -535,6 +636,10 @@
             .grants-grid {
                 grid-template-columns: 1fr;
             }
+
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -546,7 +651,7 @@
                 <div class="nav-links">
                     <a href="#" class="active">Home</a>
                     <a href="#" onclick="showMessage('About page coming soon!')">About</a>
-                    <a href="#" onclick="showMessage('Templates page coming soon!')">Templates</a>
+                    <a href="#" onclick="showTemplatesModal()">Templates</a>
                 </div>
             </nav>
         </header>
@@ -601,7 +706,7 @@
                 <h3>🌍 Find Local Grants</h3>
                 <p>Enter your location to discover grants available in your area</p>
 
-                <form id="searchForm" class="location-form">
+                <form id="local-search-form" class="location-form">
                     <input type="text" id="city" name="city" placeholder="Enter your city" required />
                     <select id="state" name="state" required>
                         <option value="">Select State</option>
@@ -656,24 +761,28 @@
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>
                     </select>
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-primary">Search Local</button>
                 </form>
             </div>
 
-            <!-- Google Grant Search Section -->
+            <!-- National Grant Search Section -->
             <div class="location-section">
                 <h3>🔎 Search National Grants</h3>
                 <p>Use keywords to find available grants across the U.S.</p>
-                <form id="grantForm" class="location-form">
+                <form id="national-search-form" class="location-form">
                     <input type="text" id="query" placeholder="What are you looking for?" required />
-                    <input type="text" id="location" placeholder="Enter city or state" />
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <input type="text" id="location" placeholder="Enter city or state (optional)" />
+                    <button type="submit" class="btn btn-primary">Search National</button>
                 </form>
             </div>
 
-            <div class="grants-results" id="google-results">
-                <h3>🔗 Grant Listings</h3>
-                <div id="results"></div>
+            <!-- Error/Success Messages -->
+            <div id="message-container"></div>
+
+            <!-- Search Results -->
+            <div class="grants-results" id="search-results">
+                <h3>🔗 Grant Search Results</h3>
+                <div id="results-container"></div>
             </div>
 
             <!-- Input Section -->
@@ -689,7 +798,7 @@
                     <div class="char-counter">0 characters</div>
                 </div>
                 <div class="submit-container">
-                    <button class="btn btn-secondary" onclick="showTemplates()">Use Templates</button>
+                    <button class="btn btn-secondary" onclick="showTemplatesModal()">Use Templates</button>
                     <button class="btn btn-primary" onclick="generateProposal()">Generate Proposal →</button>
                 </div>
             </div>
@@ -700,10 +809,64 @@
                 <p>Generating your proposal...</p>
             </div>
 
-            <!-- Results Section -->
-            <div class="grants-results" id="results">
-                <h3>📄 Proposal Output</h3>
-                <div id="output-content"></div>
+            <!-- Proposal Results Section -->
+            <div class="grants-results" id="proposal-results">
+                <h3>📄 Generated Proposal</h3>
+                <div id="proposal-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates Modal -->
+    <div id="templates-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📋 Grant Writing Templates</h3>
+                <span class="close" onclick="closeTemplatesModal()">&times;</span>
+            </div>
+            <div class="template-grid">
+                <div class="template-card" onclick="useTemplate('problem_statement')">
+                    <h4>Problem Statement</h4>
+                    <p>Create a compelling problem statement that clearly articulates the need</p>
+                    <div class="template-text">
+                        "Help me write a compelling problem statement for a grant proposal about [TOPIC]. Include relevant statistics, evidence of need, and clear articulation of the gap this grant will address."
+                    </div>
+                </div>
+                <div class="template-card" onclick="useTemplate('methodology')">
+                    <h4>Methodology</h4>
+                    <p>Develop a detailed methodology section with specific steps and timeline</p>
+                    <div class="template-text">
+                        "Help me develop a detailed methodology section for a grant proposal that will [OBJECTIVE]. Include specific steps, timeline, and evaluation methods."
+                    </div>
+                </div>
+                <div class="template-card" onclick="useTemplate('budget_justification')">
+                    <h4>Budget Justification</h4>
+                    <p>Write a comprehensive budget justification explaining costs</p>
+                    <div class="template-text">
+                        "Help me write a budget justification for [PROJECT TYPE] that costs $[AMOUNT]. Explain why each expense is necessary and how it contributes to project success."
+                    </div>
+                </div>
+                <div class="template-card" onclick="useTemplate('evaluation_plan')">
+                    <h4>Evaluation Plan</h4>
+                    <p>Create both formative and summative evaluation methods</p>
+                    <div class="template-text">
+                        "Help me create an evaluation plan for a grant project that aims to [GOAL]. Include both formative and summative evaluation methods with specific metrics."
+                    </div>
+                </div>
+                <div class="template-card" onclick="useTemplate('sustainability')">
+                    <h4>Sustainability Plan</h4>
+                    <p>Explain how the project will continue beyond the grant period</p>
+                    <div class="template-text">
+                        "Help me write a sustainability plan explaining how the project funded by this grant will continue beyond the grant period. Include funding strategies and long-term impact."
+                    </div>
+                </div>
+                <div class="template-card" onclick="useTemplate('needs_assessment')">
+                    <h4>Needs Assessment</h4>
+                    <p>Conduct a thorough needs assessment for your target population</p>
+                    <div class="template-text">
+                        "Help me conduct a needs assessment for [TARGET POPULATION] in [LOCATION]. Include data collection methods, key indicators, and community stakeholder involvement."
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -712,6 +875,9 @@
         // Global variables
         let selectedCategory = '';
         let selectedQuickAction = '';
+
+        // Initialize character counter
+        document.getElementById('project-description').addEventListener('input', updateCharCounter);
 
         // Category selection
         function selectCategory(category) {
@@ -745,162 +911,3 @@
             });
             
             event.target.classList.add('active');
-            
-            // Insert template text
-            const textarea = document.getElementById('project-description');
-            const templates = {
-                'Problem Statement': 'I need help writing a problem statement for my project. The issue we are addressing is...',
-                'Budget Justification': 'I need help creating a budget justification. Our project requires funding for...',
-                'Evaluation Plan': 'I need help developing an evaluation plan. We will measure success by...',
-                'Methodology': 'I need help describing our methodology. Our approach will be...'
-            };
-            
-            textarea.value = templates[action] || '';
-            updateCharCounter();
-            textarea.focus();
-        }
-
-        // Update assistant message
-        function updateAssistantMessage(message) {
-            const messageContent = document.querySelector('.assistant-message .message-content');
-            messageContent.textContent = message;
-        }
-
-        // Character counter
-        function updateCharCounter() {
-            const textarea = document.getElementById('project-description');
-            const counter = document.querySelector('.char-counter');
-            counter.textContent = `${textarea.value.length} characters`;
-        }
-
-        // Generate proposal
-        function generateProposal() {
-            const description = document.getElementById('project-description').value.trim();
-            
-            if (!description) {
-                alert('Please describe your project first!');
-                return;
-            }
-            
-            // Show loading
-            document.getElementById('loading').classList.add('active');
-            
-            // Simulate API call
-            setTimeout(() => {
-                document.getElementById('loading').classList.remove('active');
-                
-                // Show results
-                const resultsDiv = document.getElementById('results');
-                const outputContent = document.getElementById('output-content');
-                
-                // Generate sample proposal based on category and description
-                const proposal = generateSampleProposal(selectedCategory, description, selectedQuickAction);
-                outputContent.innerHTML = proposal;
-                
-                resultsDiv.classList.add('active');
-                resultsDiv.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
-        }
-
-        // Generate sample proposal content
-        function generateSampleProposal(category, description, quickAction) {
-            const categoryFocus = {
-                'nonprofit': 'community impact and social services',
-                'education': 'educational outcomes and learning objectives',
-                'health': 'health outcomes and public wellness',
-                'environmental': 'environmental sustainability and conservation'
-            };
-            
-            return `
-                <div class="grant-card">
-                    <h4>Generated Grant Proposal Section</h4>
-                    <div class="grant-description">
-                        <p><strong>Category:</strong> ${category ? categoryFocus[category] : 'General project'}</p>
-                        <p><strong>Focus Area:</strong> ${quickAction || 'Comprehensive proposal'}</p>
-                        <br>
-                        <p><strong>Project Description:</strong></p>
-                        <p>${description}</p>
-                        <br>
-                        <p><strong>AI-Generated Enhancement:</strong></p>
-                        <p>Based on your project description, this ${category || 'general'} initiative shows strong potential for grant funding. The project addresses key priorities in ${categoryFocus[category] || 'the specified area'} and demonstrates clear objectives and measurable outcomes.</p>
-                        <br>
-                        <p><em>This is a demo version. In the full application, this would connect to an AI service to generate comprehensive, customized grant proposals.</em></p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Show templates
-        function showTemplates() {
-            alert('Templates feature coming soon! This would open a library of grant proposal templates.');
-        }
-
-        // Show message helper
-        function showMessage(message) {
-            alert(message);
-        }
-
-        // Local grants search
-        document.getElementById("searchForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const city = document.getElementById("city").value;
-            const state = document.getElementById("state").value;
-
-            if (!city || !state) {
-                alert('Please enter both city and state');
-                return;
-            }
-
-            // Show loading
-            document.getElementById('loading').classList.add('active');
-
-            // Simulate search
-            setTimeout(() => {
-                document.getElementById('loading').classList.remove('active');
-                
-                // Show sample results
-                const resultsDiv = document.getElementById('google-results');
-                const results = document.getElementById('results');
-                
-                results.innerHTML = `
-                    <div class="grant-card">
-                        <h4><a href="#" target="_blank">Community Development Block Grant - ${city}, ${state}</a></h4>
-                        <p class="grant-description">Federal funding for community development projects in ${city}. Supports housing, economic development, and infrastructure improvements.</p>
-                    </div>
-                    <div class="grant-card">
-                        <h4><a href="#" target="_blank">${state} Arts Council Grant</a></h4>
-                        <p class="grant-description">State-level funding for arts and culture programs in ${state}. Supports individual artists and cultural organizations.</p>
-                    </div>
-                    <div class="grant-card">
-                        <h4><a href="#" target="_blank">Local Foundation Grant - ${city} Community Foundation</a></h4>
-                        <p class="grant-description">Local foundation supporting nonprofit organizations in the ${city} area. Focus on education, health, and social services.</p>
-                    </div>
-                `;
-                
-                resultsDiv.classList.add('active');
-                resultsDiv.scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
-        });
-
-        // National grants search
-        document.getElementById('grantForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const query = document.getElementById('query').value;
-            const location = document.getElementById('location').value;
-
-            if (!query) {
-                alert('Please enter a search query');
-                return;
-            }
-
-            // Show loading
-            document.getElementById('loading').classList.add('active');
-
-            // Simulate search
-            setTimeout(() => {
-                document.getElementById('loading').classList.remove('active');
-                
-                const resultsDiv = document.getElementById('results');
-                resultsDiv.innerHTML = `
-                    <div class="grant-card">
-                        <h4><a href="#" target="_blank">National Grant for
