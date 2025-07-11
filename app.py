@@ -384,7 +384,7 @@ logging.basicConfig(
 )
 
 @app.route('/health', methods=['GET'])
-def health_check():
+def health():
     return {'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()}, 200
     
 @app.route('/generate', methods=['POST'])
