@@ -783,7 +783,7 @@ def templates_page():
             "description": "Create both formative and summative evaluation methods",
             "template": "Help me create an evaluation plan for a grant project that aims to [GOAL]. Include both formative and summative evaluation methods with specific metrics."
         },
-        "sustainability": {
+                     "sustainability": {
             "title": "Sustainability Plan",
             "description": "Explain how the project will continue beyond the grant period",
             "template": "Help me write a sustainability plan explaining how the project funded by this grant will continue beyond the grant period."
