@@ -31,7 +31,7 @@ def result():
     """Display result page (typically reached after generation)"""
     # This could be used for direct access to result page
     return render_template('result.html', output="No content generated yet. Please submit a request first.")
-    @app.route('/search', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('query')
     location = request.args.get('location')
