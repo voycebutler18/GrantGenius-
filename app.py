@@ -133,43 +133,32 @@ def perform_comprehensive_search(query, location):
     return remove_duplicates(results)
 
 def perform_web_search_with_timeout(query, timeout=10):
-    """Perform web search with timeout protection"""
-    
-    # You can implement multiple search backends here
-    # For now, let's use a simple requests-based approach
-    
+    """Perform web search using Google Custom Search JSON API"""
     try:
-        # Example using DuckDuckGo Instant Answer API (free, no key required)
-        url = "https://api.duckduckgo.com/"
+        url = "https://www.googleapis.com/customsearch/v1"
         params = {
+            "key": API_KEY,
+            "cx": SEARCH_ENGINE_ID,
             "q": query,
-            "format": "json",
-            "no_html": "1",
-            "skip_disambig": "1"
+            "num": 10
         }
-        
+
         response = requests.get(url, params=params, timeout=timeout)
         response.raise_for_status()
-        
         data = response.json()
-        
-        # Convert DuckDuckGo format to our format
+
         results = []
-        
-        # Add related topics
-        if "RelatedTopics" in data:
-            for topic in data["RelatedTopics"][:5]:
-                if isinstance(topic, dict) and "Text" in topic:
-                    results.append({
-                        "title": topic.get("Text", "")[:100],
-                        "link": topic.get("FirstURL", ""),
-                        "snippet": topic.get("Text", "")
-                    })
-        
+        for item in data.get("items", []):
+            results.append({
+                "title": item.get("title", "")[:100],
+                "link": item.get("link", ""),
+                "snippet": item.get("snippet", "")
+            })
+
         return results
-        
+
     except requests.RequestException as e:
-        logger.error(f"Web search timeout or error: {str(e)}")
+        logger.error(f"Web search failed: {str(e)}")
         raise
 
 def perform_fallback_search(query, location):
