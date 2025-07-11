@@ -492,9 +492,6 @@ def about():
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
-@app.route('/templates/page')
-def templates_page():
-    return render_template('templates.html')
 
 @app.route('/health', methods=['GET'])
 def health_check():
