@@ -361,8 +361,8 @@ def remove_duplicates(results):
     return unique_results
 
 @app.route('/')
-def home():
-    return "Hello World"
+def home():  # Change this from whatever it currently is to 'home'
+    return render_template('index.html')
 
 # Add a test endpoint to debug the search
 @app.route('/search/test', methods=['GET'])
