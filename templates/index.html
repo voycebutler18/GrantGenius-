@@ -45,6 +45,7 @@
             font-weight: bold;
             color: white;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -59,6 +60,7 @@
             border-radius: 25px;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
         }
 
         .nav-links a:hover {
@@ -647,10 +649,10 @@
     <div class="container">
         <header>
             <nav class="nav">
-                <a href="#" class="logo">GrantGenius</a>
+                <a href="#" class="logo" onclick="goHome()">GrantGenius</a>
                 <div class="nav-links">
-                    <a href="#" class="active">Home</a>
-                    <a href="#" onclick="showMessage('About page coming soon!')">About</a>
+                    <a href="#" class="active" onclick="goHome()">Home</a>
+                    <a href="#" onclick="showAbout()">About</a>
                     <a href="#" onclick="showTemplatesModal()">Templates</a>
                 </div>
             </nav>
@@ -694,7 +696,7 @@
                 </div>
             </div>
 
-            <div class="assistant-message">
+            <div class="assistant-message" id="assistant-message">
                 <div class="message-avatar">🤖</div>
                 <div class="message-content">
                     Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?
@@ -706,7 +708,7 @@
                 <h3>🌍 Find Local Grants</h3>
                 <p>Enter your location to discover grants available in your area</p>
 
-                <form id="local-search-form" class="location-form">
+                <form id="local-search-form" class="location-form" onsubmit="searchLocalGrants(event)">
                     <input type="text" id="city" name="city" placeholder="Enter your city" required />
                     <select id="state" name="state" required>
                         <option value="">Select State</option>
@@ -769,7 +771,7 @@
             <div class="location-section">
                 <h3>🔎 Search National Grants</h3>
                 <p>Use keywords to find available grants across the U.S.</p>
-                <form id="national-search-form" class="location-form">
+                <form id="national-search-form" class="location-form" onsubmit="searchNationalGrants(event)">
                     <input type="text" id="query" placeholder="What are you looking for?" required />
                     <input type="text" id="location" placeholder="Enter city or state (optional)" />
                     <button type="submit" class="btn btn-primary">Search National</button>
@@ -795,7 +797,7 @@
                 </div>
                 <div class="form-group">
                     <textarea id="project-description" placeholder="Describe your project in detail. Include information about your organization, target population, objectives, and what type of grant section you need help with..."></textarea>
-                    <div class="char-counter">0 characters</div>
+                    <div class="char-counter" id="char-counter">0 characters</div>
                 </div>
                 <div class="submit-container">
                     <button class="btn btn-secondary" onclick="showTemplatesModal()">Use Templates</button>
@@ -876,38 +878,27 @@
         let selectedCategory = '';
         let selectedQuickAction = '';
 
-        // Initialize character counter
-        document.getElementById('project-description').addEventListener('input', updateCharCounter);
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize character counter
+            const textarea = document.getElementById('project-description');
+            if (textarea) {
+                textarea.addEventListener('input', updateCharCounter);
+            }
+        });
 
-        // Category selection
-        function selectCategory(category) {
-            selectedCategory = category;
-            
-            // Update visual feedback
-            document.querySelectorAll('.category').forEach(cat => {
-                cat.classList.remove('selected');
-            });
-            
-            event.target.closest('.category').classList.add('selected');
-            
-            // Update assistant message
-            const categoryNames = {
-                'nonprofit': 'Nonprofit & Community',
-                'education': 'Education & Research',
-                'health': 'Health & Medical',
-                'environmental': 'Environmental'
-            };
-            
-            updateAssistantMessage(`Great! You've selected ${categoryNames[category]}. Now tell me more about your specific project and what type of grant assistance you need.`);
+        // Navigation functions
+        function goHome() {
+            console.log('Home clicked');
+            // Reset to home state
+            hideAllSections();
+            updateAssistantMessage("Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?");
         }
 
-        // Quick action selection
-        function insertQuickAction(action) {
-            selectedQuickAction = action;
-            
-            // Update visual feedback
-            document.querySelectorAll('.quick-action').forEach(qa => {
-                qa.classList.remove('active');
-            });
-            
-            event.target.classList.add('active');
+        function showAbout() {
+            console.log('About clicked');
+            updateAssistantMessage("GrantGenius is an AI-powered grant writing assistant that helps you create professional, compelling grant proposals. Our system uses advanced AI to help you develop problem statements, methodologies, budget justifications, and evaluation plans that increase your chances of funding success.");
+        }
+
+        function showTemplatesModal() {
+            console.log('Templates clicked');
