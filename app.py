@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from openai import OpenAI
+from flask import Flask, request, jsonify
 import os
-import time  
 import logging
 import requests
 from urllib.parse import quote
@@ -20,164 +20,21 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 API_KEY = os.getenv("GOOGLE_API_KEY")
 SEARCH_ENGINE_ID = os.getenv("GOOGLE_CSE_ID")
 
-# Template fallback function
-def render_template_safe(template_name, **kwargs):
-    """Safely render template with fallback to JSON response"""
-    try:
-        return render_template(template_name, **kwargs)
-    except Exception as e:
-        logger.error(f"Template {template_name} not found: {str(e)}")
-        # Return a simple HTML response instead of failing
-        if template_name == 'index.html':
-            return """
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>GrantGenius</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-                    .container { background: #f9f9f9; padding: 30px; border-radius: 10px; }
-                    h1 { color: #333; text-align: center; }
-                    form { margin: 20px 0; }
-                    textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-                    button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-                    button:hover { background: #0056b3; }
-                    .error { color: red; margin: 10px 0; }
-                    .nav { margin: 20px 0; }
-                    .nav a { margin-right: 15px; color: #007bff; text-decoration: none; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>GrantGenius - AI Grant Writing Assistant</h1>
-                    <div class="nav">
-                        <a href="/">Home</a>
-                        <a href="/templates/page">Templates</a>
-                        <a href="/about">About</a>
-                        <a href="/contact">Contact</a>
-                    </div>
-                    """ + (f'<div class="error">Error: {kwargs.get("error", "")}</div>' if kwargs.get("error") else '') + """
-                    <form method="POST" action="/generate">
-                        <textarea name="prompt" placeholder="Enter your grant writing prompt here..." required></textarea>
-                        <br><br>
-                        <button type="submit">Generate Grant Response</button>
-                    </form>
-                </div>
-            </body>
-            </html>
-            """
-        elif template_name == 'result.html':
-            return f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>GrantGenius - Result</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
-                    .container {{ background: #f9f9f9; padding: 30px; border-radius: 10px; }}
-                    h1 {{ color: #333; text-align: center; }}
-                    .result {{ background: white; padding: 20px; border-radius: 5px; margin: 20px 0; white-space: pre-wrap; }}
-                    .nav {{ margin: 20px 0; }}
-                    .nav a {{ margin-right: 15px; color: #007bff; text-decoration: none; }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>GrantGenius - Generated Response</h1>
-                    <div class="nav">
-                        <a href="/">Home</a>
-                        <a href="/templates/page">Templates</a>
-                        <a href="/about">About</a>
-                        <a href="/contact">Contact</a>
-                    </div>
-                    <div class="result">{kwargs.get('output', 'No content generated.')}</div>
-                    <a href="/">← Back to Home</a>
-                </div>
-            </body>
-            </html>
-            """
-        elif template_name == 'templates.html':
-            templates = kwargs.get('templates', {})
-            template_html = ""
-            for key, template in templates.items():
-                template_html += f"""
-                <div class="template-card">
-                    <h3>{template['title']}</h3>
-                    <p>{template['description']}</p>
-                    <div class="template-text">{template['template']}</div>
-                </div>
-                """
-            return f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>GrantGenius - Templates</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
-                    .container {{ background: #f9f9f9; padding: 30px; border-radius: 10px; }}
-                    h1 {{ color: #333; text-align: center; }}
-                    .nav {{ margin: 20px 0; }}
-                    .nav a {{ margin-right: 15px; color: #007bff; text-decoration: none; }}
-                    .template-card {{ background: white; padding: 20px; margin: 20px 0; border-radius: 5px; }}
-                    .template-text {{ background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: monospace; }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>Grant Writing Templates</h1>
-                    <div class="nav">
-                        <a href="/">Home</a>
-                        <a href="/templates/page">Templates</a>
-                        <a href="/about">About</a>
-                        <a href="/contact">Contact</a>
-                    </div>
-                    {template_html}
-                </div>
-            </body>
-            </html>
-            """
-        else:
-            # Generic page template
-            return f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>GrantGenius</title>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }}
-                    .container {{ background: #f9f9f9; padding: 30px; border-radius: 10px; }}
-                    h1 {{ color: #333; text-align: center; }}
-                    .nav {{ margin: 20px 0; }}
-                    .nav a {{ margin-right: 15px; color: #007bff; text-decoration: none; }}
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>GrantGenius</h1>
-                    <div class="nav">
-                        <a href="/">Home</a>
-                        <a href="/templates/page">Templates</a>
-                        <a href="/about">About</a>
-                        <a href="/contact">Contact</a>
-                    </div>
-                    <p>Welcome to GrantGenius - Your AI Grant Writing Assistant</p>
-                </div>
-            </body>
-            </html>
-            """
+@app.route('/')
+def home():
+    """Main page with form to submit grant requests"""
+    return render_template('index.html')
+
+@app.route('/about')
+def about():
+    """About page explaining GrantGenius"""
+    return render_template('about.html')
 
 @app.route('/result')
 def result():
     """Display result page (typically reached after generation)"""
-    return render_template_safe('result.html', output="No content generated yet. Please submit a request first.")
+    # This could be used for direct access to result page
+    return render_template('result.html', output="No content generated yet. Please submit a request first.")
 
 @app.route('/search', methods=['GET'])
 def search_grants():
@@ -550,14 +407,14 @@ def generate_grant_response():
         if return_json:
             return jsonify({"error": error_msg}), 400
         else:
-            return render_template_safe('index.html', error=error_msg)
+            return render_template('index.html', error=error_msg)
     
     if not user_prompt.strip():
         error_msg = "Prompt cannot be empty"
         if return_json:
             return jsonify({"error": error_msg}), 400
         else:
-            return render_template_safe('index.html', error=error_msg)
+            return render_template('index.html', error=error_msg)
     
     # Optional parameters (only for JSON requests)
     max_tokens = 1500
@@ -610,7 +467,7 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
                 "completion_tokens": response.usage.completion_tokens if response.usage else None
             })
         else:
-            return render_template_safe('result.html', output=reply, prompt=user_prompt)
+            return render_template('result.html', output=reply, prompt=user_prompt)
         
     except Exception as e:
         # Log the error for debugging
@@ -630,15 +487,7 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
         if return_json:
             return jsonify({"error": error_msg}), status_code
         else:
-            return render_template_safe('index.html', error=error_msg)
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
+            return render_template('index.html', error=error_msg)
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -656,7 +505,6 @@ def health_check():
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
         return jsonify({"status": "unhealthy", "error": str(e)}), 500
-
 @app.route("/find-grants", methods=["POST"])
 def find_grants():
     data = request.get_json()
@@ -669,7 +517,7 @@ def find_grants():
         {"title": "Community Development Block Grant", "amount": "$25,000", "source": "City of Chicago"},
     ]
 
-    return render_template_safe("grants_results.html", results=results, city=city, state=state)
+    return render_template("grants_results.html", results=results, city=city, state=state)
 
 @app.route('/api/generate', methods=['POST'])
 def api_generate_grant_response():
