@@ -22,7 +22,7 @@ API_KEY = os.getenv("GOOGLE_API_KEY")
 SEARCH_ENGINE_ID = os.getenv("GOOGLE_CSE_ID")
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
     
 @app.route('/about')
