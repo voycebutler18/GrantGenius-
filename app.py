@@ -21,10 +21,9 @@ API_KEY = os.getenv("GOOGLE_API_KEY")
 SEARCH_ENGINE_ID = os.getenv("GOOGLE_CSE_ID")
 
 @app.route('/')
-def home():
-    """Main page with form to submit grant requests"""
+def index():
     return render_template('index.html')
-
+    
 @app.route('/about')
 def about():
     """About page explaining GrantGenius"""
