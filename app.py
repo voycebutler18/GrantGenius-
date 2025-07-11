@@ -150,6 +150,19 @@ def health_check():
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
         return jsonify({"status": "unhealthy", "error": str(e)}), 500
+@app.route("/find-grants", methods=["POST"])
+def find_grants():
+    data = request.get_json()
+    city = data.get("city")
+    state = data.get("state")
+
+    # Your logic for looking up grants based on city/state
+    results = [
+        {"title": "Small Business Boost", "amount": "$10,000", "source": "Illinois DCEO"},
+        {"title": "Community Development Block Grant", "amount": "$25,000", "source": "City of Chicago"},
+    ]
+
+    return render_template("grants_results.html", results=results, city=city, state=state)
 
 @app.route('/api/generate', methods=['POST'])
 def api_generate_grant_response():
