@@ -382,6 +382,16 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+@app.route('/')
+def home():
+    """Main page with form to submit grant requests"""
+    return render_template('index.html')  # NOT 'home.html'
+
+@app.route('/')
+def home():
+    """Main page with form to submit grant requests"""
+    return render_template('home.html')
+    
 
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
