@@ -703,6 +703,33 @@
       alert("Could not fetch grants. Please try again.");
     }
   });
+<script>
+  document.getElementById('grantForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = document.getElementById('query').value;
+    const location = document.getElementById('location').value;
+
+    const res = await fetch(`/search?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
+    const data = await res.json();
+
+    const resultsDiv = document.getElementById('results');
+    resultsDiv.innerHTML = '';
+    document.getElementById('google-results').classList.add('active');
+
+    if (data.items) {
+      data.items.forEach(item => {
+        const result = document.createElement('div');
+        result.className = 'grant-card';
+        result.innerHTML = `
+          <h4><a href="${item.link}" target="_blank">${item.title}</a></h4>
+          <p class="grant-description">${item.snippet}</p>
+        `;
+        resultsDiv.appendChild(result);
+      });
+    } else {
+      resultsDiv.innerHTML = "<p>No results found.</p>";
+    }
+  });
 </script>
 </body>
 </html>
