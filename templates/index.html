@@ -1015,7 +1015,14 @@
             loadingDiv.classList.add('active');
             
             // Simulate API call (replace with actual implementation)
-            
+            setTimeout(() => {
+                alert('This is a demo. In a real implementation, this would generate your grant proposal content.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Generate Proposal</span><span>→</span>';
+                loadingDiv.classList.remove('active');
+            }, 3000);
+        });
+
         // Live search form
         document.getElementById('liveSearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
