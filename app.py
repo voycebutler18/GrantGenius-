@@ -383,6 +383,10 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return {'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()}, 200
+    
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
     # Check if API key is configured
