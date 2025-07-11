@@ -478,6 +478,15 @@
                 <p>Generating your grant proposal content...</p>
             </div>
         </div>
+
+        <hr style="margin: 50px 0; border: 1px solid rgba(255,255,255,0.2);">
+        <h2 style="color: white; margin-bottom: 10px;">Find Real Grants Near You</h2>
+        <form id="liveSearchForm" style="margin-bottom: 30px;">
+            <input type="text" id="liveQuery" placeholder="What kind of grant?" required style="padding: 10px; width: 40%; border-radius: 10px; border: none; margin-right: 10px;">
+            <input type="text" id="liveLocation" placeholder="City or State" style="padding: 10px; width: 25%; border-radius: 10px; border: none; margin-right: 10px;">
+            <button type="submit" class="btn btn-primary">Search Grants</button>
+        </form>
+        <div id="liveResults" style="background: white; border-radius: 15px; padding: 20px;"></div>
     </div>
 
     <script>
@@ -536,6 +545,31 @@
                 document.getElementById('prompt').value = selectedTemplate;
                 updateCharCount();
                 localStorage.removeItem('selectedTemplate');
+            }
+        });
+
+        document.getElementById('liveSearchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const query = document.getElementById('liveQuery').value;
+            const location = document.getElementById('liveLocation').value;
+            const resultsDiv = document.getElementById('liveResults');
+            
+            resultsDiv.innerHTML = `<p style="color:#666">Searching...</p>`;
+            try {
+                const res = await fetch(`/search?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
+                const data = await res.json();
+                if (!data.items) {
+                    resultsDiv.innerHTML = "<p>No results found.</p>";
+                    return;
+                }
+                resultsDiv.innerHTML = data.items.map(item => `
+                    <div style="margin-bottom: 20px;">
+                        <h3><a href="${item.link}" target="_blank" style="color:#667eea;">${item.title}</a></h3>
+                        <p style="color:#333;">${item.snippet}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                resultsDiv.innerHTML = "<p style='color:red;'>Error fetching results. Try again.</p>";
             }
         });
 
