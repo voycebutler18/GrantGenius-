@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grant Genius Hub- AI-Powered Grant Assistant</title>
+    <title>Grant Genius Hub - AI-Powered Grant Assistant</title>
     <style>
         * {
             margin: 0;
@@ -32,6 +32,9 @@
             padding: 20px;
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
         }
 
         .nav {
@@ -70,6 +73,10 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
+        .section {
+            margin-bottom: 50px;
+        }
+
         .hero {
             text-align: center;
             color: white;
@@ -99,6 +106,26 @@
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
 
         .assistant-header {
@@ -207,26 +234,29 @@
             margin-bottom: 20px;
         }
 
-        .form-group textarea {
+        .form-group textarea, .form-group input {
             width: 100%;
-            min-height: 120px;
             padding: 20px;
             border: 2px solid #e9ecef;
             border-radius: 15px;
             font-size: 1rem;
             font-family: inherit;
-            resize: vertical;
             transition: all 0.3s ease;
             background: white;
         }
 
-        .form-group textarea:focus {
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group textarea:focus, .form-group input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .form-group textarea::placeholder {
+        .form-group textarea::placeholder, .form-group input::placeholder {
             color: #999;
         }
 
@@ -343,6 +373,170 @@
             transform: translateY(-1px);
         }
 
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .about-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .template-card:hover {
+            transform: translateY(-3px);
+            border-color: #667eea;
+        }
+
+        .template-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .template-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .template-preview {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .legal-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .legal-section h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .legal-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .legal-section ul {
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .legal-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
         @media (max-width: 768px) {
             .nav {
                 flex-direction: column;
@@ -374,6 +568,10 @@
             .submit-container {
                 flex-direction: column;
             }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -381,121 +579,380 @@
     <div class="container">
         <header>
             <nav class="nav">
-                <a href="{{ url_for('index') }}" class="logo">Grant Genius Hub</a>
+                <div class="logo">Grant Genius Hub</div>
                 <div class="nav-links">
-                    <a href="{{ url_for('index') }}" class="active">Home</a>
-                    <a href="{{ url_for('about') }}">About</a>
-                    <a href="{{ url_for('templates_page') }}">Templates</a>
+                    <a href="#home" class="active">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#templates">Templates</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#privacy">Privacy</a>
                 </div>
             </nav>
         </header>
 
-        <div class="hero">
-            <h1>Grant Genius Hub</h1>
-            <p>Your AI-Powered Grant Assistant</p>
-            <div class="subtext">Transform your funding ideas into professional grant proposals with intelligent conversation</div>
-        </div>
-
-        <div class="main-card">
-            <div class="assistant-header">
-                <div class="assistant-avatar">🤖</div>
-                <div class="assistant-info">
-                    <h2>Grant Assistant</h2>
-                    <p>Tell me about your project and I'll help you create the perfect grant proposal!</p>
-                </div>
+        <!-- HOME SECTION -->
+        <section id="home" class="section">
+            <div class="hero">
+                <h1>Grant Genius Hub</h1>
+                <p>Your AI-Powered Grant Assistant</p>
+                <div class="subtext">Transform your funding ideas into professional grant proposals with intelligent conversation</div>
             </div>
 
-            <div class="categories">
-                <div class="category" onclick="selectCategory('nonprofit')">
-                    <div class="category-icon">🏛️</div>
-                    <h3>Nonprofit & Community</h3>
-                    <p>Social services, community development, charitable organizations</p>
-                </div>
-                <div class="category" onclick="selectCategory('education')">
-                    <div class="category-icon">🎓</div>
-                    <h3>Education & Research</h3>
-                    <p>Schools, universities, research projects, educational programs</p>
-                </div>
-                <div class="category" onclick="selectCategory('health')">
-                    <div class="category-icon">🏥</div>
-                    <h3>Health & Medical</h3>
-                    <p>Healthcare initiatives, medical research, public health</p>
-                </div>
-                <div class="category" onclick="selectCategory('environmental')">
-                    <div class="category-icon">🌱</div>
-                    <h3>Environmental</h3>
-                    <p>Sustainability, conservation, climate change, green technology</p>
-                </div>
-            </div>
-
-            <div class="assistant-message">
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?
-                </div>
-            </div>
-
-            {% if error %}
-            <div class="error-message">
-                {{ error }}
-            </div>
-            {% endif %}
-
-            <form method="POST" action="{{ url_for('generate_grant_response') }}" id="grantForm">
-                <div class="form-container">
-                    <div class="quick-actions">
-                        <span class="quick-action" onclick="addQuickText('I need help writing a problem statement for')">Problem Statement</span>
-                        <span class="quick-action" onclick="addQuickText('I need a budget justification for')">Budget Justification</span>
-                        <span class="quick-action" onclick="addQuickText('I need an evaluation plan for')">Evaluation Plan</span>
-                        <span class="quick-action" onclick="addQuickText('I need a methodology section for')">Methodology</span>
+            <div class="main-card">
+                <div class="assistant-header">
+                    <div class="assistant-avatar">🤖</div>
+                    <div class="assistant-info">
+                        <h2>Grant Assistant</h2>
+                        <p>Tell me about your project and I'll help you create the perfect grant proposal!</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <textarea 
-                            name="prompt" 
-                            id="prompt" 
-                            placeholder="Describe your project in detail. Include information about your organization, target population, objectives, and what type of grant section you need help with..."
-                            required
-                            oninput="updateCharCount()"
-                        ></textarea>
-                        <div class="char-counter">
-                            <span id="charCount">0</span> characters
+                <div class="categories">
+                    <div class="category" onclick="selectCategory('nonprofit')">
+                        <div class="category-icon">🏛️</div>
+                        <h3>Nonprofit & Community</h3>
+                        <p>Social services, community development, charitable organizations</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('education')">
+                        <div class="category-icon">🎓</div>
+                        <h3>Education & Research</h3>
+                        <p>Schools, universities, research projects, educational programs</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('health')">
+                        <div class="category-icon">🏥</div>
+                        <h3>Health & Medical</h3>
+                        <p>Healthcare initiatives, medical research, public health</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('environmental')">
+                        <div class="category-icon">🌱</div>
+                        <h3>Environmental</h3>
+                        <p>Sustainability, conservation, climate change, green technology</p>
+                    </div>
+                </div>
+
+                <div class="assistant-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?
+                    </div>
+                </div>
+
+                <form id="grantForm">
+                    <div class="form-container">
+                        <div class="quick-actions">
+                            <span class="quick-action" onclick="addQuickText('I need help writing a problem statement for')">Problem Statement</span>
+                            <span class="quick-action" onclick="addQuickText('I need a budget justification for')">Budget Justification</span>
+                            <span class="quick-action" onclick="addQuickText('I need an evaluation plan for')">Evaluation Plan</span>
+                            <span class="quick-action" onclick="addQuickText('I need a methodology section for')">Methodology</span>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea 
+                                name="prompt" 
+                                id="prompt" 
+                                placeholder="Describe your project in detail. Include information about your organization, target population, objectives, and what type of grant section you need help with..."
+                                required
+                                oninput="updateCharCount()"
+                            ></textarea>
+                            <div class="char-counter">
+                                <span id="charCount">0</span> characters
+                            </div>
+                        </div>
+
+                        <div class="submit-container">
+                            <button type="button" class="btn btn-secondary" onclick="scrollToSection('templates')">Use Templates</button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span>Generate Proposal</span>
+                                <span>→</span>
+                            </button>
                         </div>
                     </div>
+                </form>
 
-                    <div class="submit-container">
-                        <a href="{{ url_for('templates_page') }}" class="btn btn-secondary">Use Templates</a>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">
-                            <span>Generate Proposal</span>
-                            <span>→</span>
-                        </button>
+                <div class="loading" id="loadingDiv">
+                    <div class="spinner"></div>
+                    <p>Generating your grant proposal content...</p>
+                </div>
+            </div>
+
+            <div class="main-card">
+                <h2 style="color: #333; margin-bottom: 20px; text-align: center;">Find Real Grants Near You</h2>
+                <form id="liveSearchForm" style="margin-bottom: 30px;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="liveQuery" placeholder="What kind of grant?" required style="flex: 1; min-width: 200px;">
+                        <input type="text" id="liveLocation" placeholder="City or State" style="flex: 1; min-width: 150px;">
+                        <button type="submit" class="btn btn-primary">Search Grants</button>
+                    </div>
+                </form>
+                <div id="liveResults" style="border-radius: 10px; padding: 20px; background: #f8f9fa;"></div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section">
+            <div class="main-card">
+                <h2 class="section-title">About Grant Genius Hub</h2>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Our Mission</h3>
+                        <p>To democratize access to funding by providing AI-powered grant writing assistance to organizations of all sizes. We believe every great idea deserves the chance to secure funding.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>How It Works</h3>
+                        <p>Our AI analyzes your project details and generates professional grant proposal sections tailored to your specific needs. From problem statements to budget justifications, we've got you covered.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Why Choose Us</h3>
+                        <p>With years of grant writing expertise built into our AI, we help you create compelling proposals that stand out. Our tool learns from successful grant applications across various sectors.</p>
                     </div>
                 </div>
-            </form>
 
-            <div class="loading" id="loadingDiv">
-                <div class="spinner"></div>
-                <p>Generating your grant proposal content...</p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <h3 style="color: #333; margin-bottom: 20px;">Trusted by Organizations Worldwide</h3>
+                    <p style="color: #666; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
+                        From small nonprofits to large research institutions, Grant Genius Hub has helped secure millions in funding through better grant proposals. Our AI understands the nuances of different funding bodies and proposal requirements.
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <hr style="margin: 50px 0; border: 1px solid rgba(255,255,255,0.2);">
-        <h2 style="color: white; margin-bottom: 10px;">Find Real Grants Near You</h2>
-        <form id="liveSearchForm" style="margin-bottom: 30px;">
-            <input type="text" id="liveQuery" placeholder="What kind of grant?" required style="padding: 10px; width: 40%; border-radius: 10px; border: none; margin-right: 10px;">
-            <input type="text" id="liveLocation" placeholder="City or State" style="padding: 10px; width: 25%; border-radius: 10px; border: none; margin-right: 10px;">
-            <button type="submit" class="btn btn-primary">Search Grants</button>
-        </form>
-        <div id="liveResults" style="background: white; border-radius: 15px; padding: 20px;"></div>
+        <!-- TEMPLATES SECTION -->
+        <section id="templates" class="section">
+            <div class="main-card">
+                <h2 class="section-title">Grant Proposal Templates</h2>
+                
+                <div class="templates-grid">
+                    <div class="template-card">
+                        <h4>🏛️ Nonprofit Community Program</h4>
+                        <p>Perfect for community outreach, social services, and charitable initiatives.</p>
+                        <div class="template-preview">
+                            "I need help writing a comprehensive grant proposal for a nonprofit community program that addresses food insecurity in urban areas. Our organization serves 500+ families monthly through our food pantry and seeks $50,000 for expansion..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('nonprofit')">Use This Template</button>
+                    </div>
+                    
+                    <div class="template-card">
+                        <h4>🎓 Educational Research Project</h4>
+                        <p>Ideal for academic institutions, research projects, and educational programs.</p>
+                        <div class="template-preview">
+                            "I need assistance with a grant proposal for an educational research project investigating innovative teaching methods in STEM education. Our study will involve 200 students across 5 schools over 2 years, requiring $75,000 in funding..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('education')">Use This Template</button>
+                    </div>
+                    
+                    <div class="template-card">
+                        <h4>🏥 Healthcare Initiative</h4>
+                        <p>Designed for medical research, public health programs, and healthcare improvements.</p>
+                        <div class="template-preview">
+                            "I need help writing a grant proposal for a healthcare initiative focused on mental health support for rural communities. Our program will provide telehealth services to 1,000+ residents, requiring $100,000 in funding..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('health')">Use This Template</button>
+                    </div>
+                    
+                    <div class="template-card">
+                        <h4>🌱 Environmental Conservation</h4>
+                        <p>Tailored for sustainability projects, conservation efforts, and green technology.</p>
+                        <div class="template-preview">
+                            "I need assistance with a grant proposal for an environmental conservation project aimed at restoring wetlands in our region. The initiative will cover 500 acres and engage 50 volunteers, seeking $80,000 in funding..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('environmental')">Use This Template</button>
+                    </div>
+                    
+                    <div class="template-card">
+                        <h4>🔬 Technology Innovation</h4>
+                        <p>Perfect for tech startups, innovation labs, and technology development projects.</p>
+                        <div class="template-preview">
+                            "I need help writing a grant proposal for a technology innovation project developing AI-powered solutions for small businesses. Our platform will serve 500+ companies in the first year, requiring $150,000 in funding..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('technology')">Use This Template</button>
+                    </div>
+                    
+                    <div class="template-card">
+                        <h4>🎨 Arts & Culture Program</h4>
+                        <p>Ideal for arts organizations, cultural programs, and creative community projects.</p>
+                        <div class="template-preview">
+                            "I need assistance with a grant proposal for an arts and culture program bringing free music education to underserved youth. Our program will reach 200 students annually, seeking $60,000 in funding..."
+                        </div>
+                        <button class="btn btn-primary" onclick="useTemplate('arts')">Use This Template</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section">
+            <div class="main-card">
+                <h2 class="section-title">Contact Us</h2>
+                
+                <div class="contact-form">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p style="margin-bottom: 30px;">Have questions about Grant Genius Hub? We're here to help you succeed with your grant applications.</p>
+                        
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <span>support@grantgeniushub.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>📞</span>
+                            <span>1-800-GRANT-AI</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>🏢</span>
+                            <span>123 Innovation Drive<br>Tech City, TC 12345</span>
+                        </div>
+                        <div class="contact-item">
+                            <span>🕒</span>
+                            <span>Mon-Fri: 9AM-6PM EST</span>
+                        </div>
+                    </div>
+                    
+                    <form id="contactForm" style="background: white; padding: 30px; border-radius: 15px;">
+                        <h3 style="color: #333; margin-bottom: 20px;">Send us a Message</h3>
+                        
+                        <div class="form-group">
+                            <input type="text" id="contactName" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="contactEmail" placeholder="Your Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="contactSubject" placeholder="Subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="contactMessage" placeholder="Your Message" required style="min-height: 120px;"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIVACY SECTION -->
+        <section id="privacy" class="section">
+            <div class="legal-section">
+                <h2 class="section-title" style="color: white;">Privacy Policy</h2>
+                
+                <h3>Information We Collect</h3>
+                <p>We collect information you provide when using our grant writing services, including project descriptions, organization details, and contact information.</p>
+                
+                <h3>How We Use Your Information</h3>
+                <ul>
+                    <li>To generate personalized grant proposal content</li>
+                    <li>To improve our AI recommendations and services</li>
+                    <li>To communicate with you about our services</li>
+                    <li>To provide customer support and technical assistance</li>
+                </ul>
+                
+                <h3>Data Security</h3>
+                <p>We implement industry-standard security measures to protect your data. All information is encrypted in transit and at rest. We never sell or share your personal information with third parties without your explicit consent.</p>
+                
+                <h3>Your Rights</h3>
+                <p>You have the right to access, update, or delete your personal information at any time. Contact us at privacy@grantgeniushub.com to exercise these rights.</p>
+                
+                <h3>Cookies and Analytics</h3>
+                <p>We use cookies to improve your experience and analyze usage patterns. You can disable cookies in your browser settings, though this may limit some functionality.</p>
+                
+                <h3>Changes to This Policy</h3>
+                <p>We may update this privacy policy from time to time. We will notify you of any significant changes via email or through our website.</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2 class="section-title" style="color: white;">Terms of Service</h2>
+                
+                <h3>Acceptance of Terms</h3>
+                <p>By using Grant Genius Hub, you agree to these terms of service. If you do not agree to these terms, please do not use our services.</p>
+                
+                <h3>Service Description</h3>
+                <p>Grant Genius Hub provides AI-powered assistance for grant proposal writing. Our service generates content based on your input but does not guarantee funding success.</p>
+                
+                <h3>User Responsibilities</h3>
+                <ul>
+                    <li>Provide accurate and truthful information</li>
+                    <li>Review and edit all generated content before submission</li>
+                    <li>Ensure compliance with grant application requirements</li>
+                    <li>Respect intellectual property rights</li>
+                    <li>Use the service for legitimate purposes only</li>
+                </ul>
+                
+                <h3>Intellectual Property</h3>
+                <p>Content generated by our AI becomes your property, but you are responsible for ensuring its accuracy and compliance with grant requirements. Our software and algorithms remain our intellectual property.</p>
+                
+                <h3>Limitation of Liability</h3>
+                <p>Grant Genius Hub is not liable for any damages arising from the use of our service, including but not limited to unsuccessful grant applications or errors in generated content.</p>
+                
+                <h3>Disclaimer</h3>
+                <p>Our AI-generated content is for assistance purposes only. All proposals should be reviewed by qualified professionals before submission. We make no warranties about the accuracy or completeness of generated content.</p>
+            </div>
+            
+            <div class="legal-section">
+                <h2 class="section-title" style="color: white;">Legal Compliance</h2>
+                
+                <h3>GDPR Compliance</h3>
+                <p>For users in the European Union, we comply with the General Data Protection Regulation (GDPR). You have the right to data portability, erasure, and rectification.</p>
+                
+                <h3>CCPA Compliance</h3>
+                <p>For California residents, we comply with the California Consumer Privacy Act (CCPA). You have rights regarding the collection, use, and sale of your personal information.</p>
+                
+                <h3>Accessibility</h3>
+                <p>We strive to make our service accessible to users with disabilities and comply with WCAG 2.1 AA standards where possible.</p>
+                
+                <h3>Age Restrictions</h3>
+                <p>Our service is intended for users 18 years and older. We do not knowingly collect information from minors under 13.</p>
+                
+                <h3>Contact for Legal Matters</h3>
+                <p>For legal inquiries, contact us at legal@grantgeniushub.com or:</p>
+                <p>Grant Genius Hub Legal Department<br>
+                123 Innovation Drive<br>
+                Tech City, TC 12345</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 30px; margin-top: 50px; text-align: center;">
+            <div style="color: white; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 10px;">Grant Genius Hub</h3>
+                <p style="opacity: 0.8;">Empowering organizations to secure funding through AI-powered grant writing assistance.</p>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
+                <a href="#home" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Home</a>
+                <a href="#about" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">About</a>
+                <a href="#templates" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Templates</a>
+                <a href="#contact" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Contact</a>
+                <a href="#privacy" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Privacy</a>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 20px; color: rgba(255, 255, 255, 0.6);">
+                <p>&copy; 2025 Grant Genius Hub. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+        ↑
     </div>
 
     <script>
+        // Character counter
         function updateCharCount() {
             const textarea = document.getElementById('prompt');
             const charCount = document.getElementById('charCount');
             charCount.textContent = textarea.value.length;
         }
 
+        // Category selection
         function selectCategory(category) {
             const textarea = document.getElementById('prompt');
             let prompt = '';
@@ -520,6 +977,7 @@
             updateCharCount();
         }
 
+        // Quick text addition
         function addQuickText(text) {
             const textarea = document.getElementById('prompt');
             textarea.value = text + ' ';
@@ -527,8 +985,27 @@
             updateCharCount();
         }
 
-        // Handle form submission
+        // Template usage
+        function useTemplate(type) {
+            const templates = {
+                'nonprofit': 'I need help writing a comprehensive grant proposal for a nonprofit community program that addresses food insecurity in urban areas. Our organization serves 500+ families monthly through our food pantry and seeks $50,000 for expansion. Please help me create a compelling problem statement, methodology, and budget justification.',
+                'education': 'I need assistance with a grant proposal for an educational research project investigating innovative teaching methods in STEM education. Our study will involve 200 students across 5 schools over 2 years, requiring $75,000 in funding. Please help me develop the research methodology, evaluation plan, and expected outcomes.',
+                'health': 'I need help writing a grant proposal for a healthcare initiative focused on mental health support for rural communities. Our program will provide telehealth services to 1,000+ residents, requiring $100,000 in funding. Please help me create a needs assessment, implementation plan, and sustainability strategy.',
+                'environmental': 'I need assistance with a grant proposal for an environmental conservation project aimed at restoring wetlands in our region. The initiative will cover 500 acres and engage 50 volunteers, seeking $80,000 in funding. Please help me develop the project timeline, community engagement plan, and environmental impact assessment.',
+                'technology': 'I need help writing a grant proposal for a technology innovation project developing AI-powered solutions for small businesses. Our platform will serve 500+ companies in the first year, requiring $150,000 in funding. Please help me create the technical specifications, market analysis, and commercialization strategy.',
+                'arts': 'I need assistance with a grant proposal for an arts and culture program bringing free music education to underserved youth. Our program will reach 200 students annually, seeking $60,000 in funding. Please help me develop the curriculum overview, community partnerships, and program evaluation metrics.'
+            };
+            
+            const textarea = document.getElementById('prompt');
+            textarea.value = templates[type] || '';
+            textarea.focus();
+            updateCharCount();
+            scrollToSection('home');
+        }
+
+        // Form submission
         document.getElementById('grantForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             const loadingDiv = document.getElementById('loadingDiv');
             
@@ -536,44 +1013,112 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>Generating...</span>';
             loadingDiv.classList.add('active');
+            
+            // Simulate API call (replace with actual implementation)
+            setTimeout(() => {
+                alert('This is a demo. In a real implementation, this would generate your grant proposal content.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Generate Proposal</span><span>→</span>';
+                loadingDiv.classList.remove('active');
+            }, 3000);
         });
 
-        // Check for template from localStorage (from templates page)
-        window.addEventListener('load', function() {
-            const selectedTemplate = localStorage.getItem('selectedTemplate');
-            if (selectedTemplate) {
-                document.getElementById('prompt').value = selectedTemplate;
-                updateCharCount();
-                localStorage.removeItem('selectedTemplate');
-            }
-        });
-
-        document.getElementById('liveSearchForm').addEventListener('submit', async function(e) {
+        // Live search form
+        document.getElementById('liveSearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const query = document.getElementById('liveQuery').value;
             const location = document.getElementById('liveLocation').value;
             const resultsDiv = document.getElementById('liveResults');
             
-            resultsDiv.innerHTML = `<p style="color:#666">Searching...</p>`;
-            try {
-                const res = await fetch(`/search?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
-                const data = await res.json();
-                if (!data.items) {
-                    resultsDiv.innerHTML = "<p>No results found.</p>";
-                    return;
-                }
-                resultsDiv.innerHTML = data.items.map(item => `
+            resultsDiv.innerHTML = '<p style="color:#666">Searching for grants...</p>';
+            
+            // Simulate search results
+            setTimeout(() => {
+                resultsDiv.innerHTML = `
+                    <h3 style="color: #333; margin-bottom: 15px;">Sample Grant Opportunities</h3>
                     <div style="margin-bottom: 20px;">
-                        <h3><a href="${item.link}" target="_blank" style="color:#667eea;">${item.title}</a></h3>
-                        <p style="color:#333;">${item.snippet}</p>
+                        <h4><a href="#" style="color:#667eea;">Community Development Block Grant</a></h4>
+                        <p style="color:#666;">Federal funding for community development projects including housing, infrastructure, and public services. Deadline: March 15, 2025</p>
                     </div>
-                `).join('');
-            } catch (error) {
-                resultsDiv.innerHTML = "<p style='color:red;'>Error fetching results. Try again.</p>";
+                    <div style="margin-bottom: 20px;">
+                        <h4><a href="#" style="color:#667eea;">Education Innovation Grant</a></h4>
+                        <p style="color:#666;">State funding for innovative educational programs and technology integration. Up to $100,000 available. Deadline: April 1, 2025</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4><a href="#" style="color:#667eea;">Environmental Protection Grant</a></h4>
+                        <p style="color:#666;">EPA funding for environmental protection and sustainability projects. Various amounts available. Rolling deadline.</p>
+                    </div>
+                    <p style="color:#666; font-style: italic; margin-top: 20px;">Note: This is a demo. Real implementation would connect to grant databases and APIs.</p>
+                `;
+            }, 1500);
+        });
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
             }
         });
 
-        // Initialize character count
+        // Navigation highlighting
+        window.addEventListener('scroll', function() {
+            const sections = ['home', 'about', 'templates', 'contact', 'privacy'];
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        current = section;
+                    }
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Navigation click handlers
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                scrollToSection(target);
+            });
+        });
+
+        // Initialize
         updateCharCount();
     </script>
 </body>
