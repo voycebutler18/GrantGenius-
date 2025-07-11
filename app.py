@@ -526,10 +526,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
-@app.route('/')
-def index():
-    return render_template_safe('index.html')
-
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
     # Check if API key is configured
@@ -636,17 +632,21 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
         else:
             return render_template_safe('index.html', error=error_msg)
 
-@app.route('/contact')
-def contact():
-    return render_template_safe('contact.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/about')
 def about():
-    return render_template_safe('about.html')
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/privacy')
 def privacy():
-    return render_template_safe('privacy.html')
+    return render_template('privacy.html')
 
 @app.route('/health', methods=['GET'])
 def health_check():
