@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GrantGenius – AI Grant Helper</title>
     <style>
         * {
@@ -11,195 +12,421 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            z-index: -1;
         }
         
         .hero-section {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
             margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            pointer-events: none;
         }
         
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 700;
             color: white;
             margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             animation: fadeInUp 1s ease-out;
+            background: linear-gradient(45deg, #ffffff, #f8f9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero-section .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 1rem;
+            font-weight: 500;
             animation: fadeInUp 1s ease-out 0.2s both;
         }
         
         .hero-section .tagline {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 600px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 700px;
             margin: 0 auto;
             animation: fadeInUp 1s ease-out 0.4s both;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 2rem;
         }
         
-        .form-container {
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .chat-container {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
         }
         
-        .form-title {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            text-align: center;
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
         }
         
-        .form-description {
-            text-align: center;
-            color: #7f8c8d;
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 2rem;
-            font-size: 1.1rem;
+        }
+        
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .chat-info h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.2rem;
+        }
+        
+        .chat-info p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+        
+        .chat-messages {
+            margin-bottom: 2rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        
+        .message {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .message.ai {
+            justify-content: flex-start;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+        
+        .message-content {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            max-width: 70%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .message.ai .message-content {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom-left-radius: 6px;
+        }
+        
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-bottom-right-radius: 6px;
         }
         
         .form-group {
             margin-bottom: 1.5rem;
         }
         
-        label {
-            display: block;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+        .input-container {
+            position: relative;
         }
         
-        textarea {
+        .chat-input {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.5rem 4rem 1.5rem 1.5rem;
             border: 2px solid #e0e6ed;
-            border-radius: 12px;
+            border-radius: 25px;
             font-size: 1rem;
-            resize: vertical;
-            min-height: 150px;
+            resize: none;
+            min-height: 120px;
             transition: all 0.3s ease;
             font-family: inherit;
             background: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
         }
         
-        textarea:focus {
+        .chat-input:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
         
-        textarea::placeholder {
+        .chat-input::placeholder {
             color: #a0a0a0;
             font-style: italic;
         }
         
-        .submit-btn {
+        .send-button {
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 1rem 2.5rem;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            display: block;
-            margin: 2rem auto 0;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .send-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .send-button:active {
+            transform: scale(0.95);
+        }
+        
+        .grant-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .grant-type-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
             position: relative;
             overflow: hidden;
         }
         
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .submit-btn:active {
-            transform: translateY(-1px);
-        }
-        
-        .submit-btn::before {
+        .grant-type-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
             transition: left 0.5s;
         }
         
-        .submit-btn:hover::before {
+        .grant-type-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .grant-type-card:hover::before {
             left: 100%;
+        }
+        
+        .grant-type-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+        
+        .grant-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .grant-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .grant-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
         
         .feature-card {
             background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            transform: scaleX(0);
             transition: transform 0.3s ease;
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
         
         .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .feature-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
         
         .feature-description {
             color: #7f8c8d;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 2rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 16px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        .char-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+            padding-right: 1rem;
         }
         
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -207,20 +434,24 @@
             }
         }
         
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 1rem;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
         
         @keyframes spin {
@@ -230,107 +461,282 @@
         
         @media (max-width: 768px) {
             .hero-section h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
-            .form-container {
-                padding: 2rem;
+            .hero-section .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .chat-container {
+                padding: 1.5rem;
                 margin: 0 1rem;
             }
             
             .container {
                 padding: 0 1rem;
             }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .grant-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="background-pattern"></div>
+    
     <div class="hero-section">
         <h1>GrantGenius</h1>
         <div class="subtitle">Your AI-Powered Grant Assistant</div>
-        <div class="tagline">Transform your funding ideas into professional grant proposals in seconds</div>
+        <div class="tagline">Transform your funding ideas into professional grant proposals with intelligent conversation</div>
     </div>
     
     <div class="container">
-        <div class="form-container">
-            <h2 class="form-title">Generate Your Grant Proposal</h2>
-            <p class="form-description">Describe your project or funding needs, and our AI will create a professional grant proposal tailored to your goals.</p>
-            
-            <form method="post" action="/generate" id="grantForm">
-                <div class="form-group">
-                    <label for="user_input">What kind of grant are you applying for?</label>
-                    <textarea 
-                        id="user_input" 
-                        name="user_input" 
-                        rows="8" 
-                        placeholder="Example: I need funding to start a youth outreach nonprofit that focuses on mental health and education in underserved communities. Our program would provide counseling services, mentorship, and educational workshops to help teenagers develop coping skills and achieve academic success."
-                        required
-                    ></textarea>
+        <div class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-info">
+                        <h3>Grant Assistant</h3>
+                        <p>Tell me about your project and I'll help you create the perfect grant proposal</p>
+                    </div>
                 </div>
                 
-                <button type="submit" class="submit-btn">
-                    Generate Grant Text
-                </button>
-                
-                <div class="loading" id="loadingIndicator">
-                    <div class="spinner"></div>
-                    <p>Generating your personalized grant proposal...</p>
+                <div class="grant-types">
+                    <div class="grant-type-card" data-type="nonprofit">
+                        <div class="grant-icon">🏛️</div>
+                        <div class="grant-title">Nonprofit & Community</div>
+                        <div class="grant-description">Social services, community development, charitable organizations</div>
+                    </div>
+                    
+                    <div class="grant-type-card" data-type="education">
+                        <div class="grant-icon">🎓</div>
+                        <div class="grant-title">Education & Research</div>
+                        <div class="grant-description">Schools, universities, research projects, educational programs</div>
+                    </div>
+                    
+                    <div class="grant-type-card" data-type="business">
+                        <div class="grant-icon">💼</div>
+                        <div class="grant-title">Business & Innovation</div>
+                        <div class="grant-description">Small business, technology, startups, economic development</div>
+                    </div>
+                    
+                    <div class="grant-type-card" data-type="arts">
+                        <div class="grant-icon">🎨</div>
+                        <div class="grant-title">Arts & Culture</div>
+                        <div class="grant-description">Creative projects, cultural preservation, artistic endeavors</div>
+                    </div>
+                    
+                    <div class="grant-type-card" data-type="health">
+                        <div class="grant-icon">🏥</div>
+                        <div class="grant-title">Health & Medical</div>
+                        <div class="grant-description">Healthcare initiatives, medical research, public health</div>
+                    </div>
+                    
+                    <div class="grant-type-card" data-type="environment">
+                        <div class="grant-icon">🌱</div>
+                        <div class="grant-title">Environmental</div>
+                        <div class="grant-description">Sustainability, conservation, climate change, green technology</div>
+                    </div>
                 </div>
-            </form>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form method="post" action="/generate" id="grantForm">
+                    <div class="form-group">
+                        <div class="input-container">
+                            <textarea 
+                                id="user_input" 
+                                name="user_input" 
+                                class="chat-input"
+                                placeholder="Describe your project in detail... For example: 'I need funding to start a youth outreach nonprofit focused on mental health and education in underserved communities. Our program would provide counseling services, mentorship, and educational workshops to help teenagers develop coping skills and achieve academic success.'"
+                                required
+                            ></textarea>
+                            <button type="submit" class="send-button">
+                                ➤
+                            </button>
+                        </div>
+                        <div class="char-counter" id="charCounter">0 characters</div>
+                    </div>
+                    
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p>Generating your personalized grant proposal...</p>
+                    </div>
+                </form>
+            </div>
         </div>
         
         <div class="features">
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
-                <div class="feature-title">Instant Results</div>
-                <div class="feature-description">Get professional grant text generated in seconds, not hours</div>
+                <div class="feature-title">Intelligent Analysis</div>
+                <div class="feature-description">Our AI analyzes your project details and matches them with appropriate grant formats and requirements</div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
-                <div class="feature-title">Tailored Content</div>
-                <div class="feature-description">AI-powered proposals customized to your specific project and goals</div>
+                <div class="feature-title">Personalized Proposals</div>
+                <div class="feature-description">Each proposal is tailored to your specific needs, goals, and target funding opportunities</div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📝</div>
-                <div class="feature-title">Professional Quality</div>
-                <div class="feature-description">Grant-ready text that follows best practices and industry standards</div>
+                <div class="feature-title">Professional Standards</div>
+                <div class="feature-description">Grant-ready text that follows industry best practices and proven successful formats</div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <div class="feature-title">Expert Guidance</div>
+                <div class="feature-description">Built-in suggestions and tips to strengthen your proposal and increase funding chances</div>
             </div>
         </div>
     </div>
     
     <script>
-        document.getElementById('grantForm').addEventListener('submit', function(e) {
-            const submitBtn = document.querySelector('.submit-btn');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            
-            submitBtn.style.display = 'none';
-            loadingIndicator.style.display = 'block';
+        // Grant type selection
+        const grantCards = document.querySelectorAll('.grant-type-card');
+        const chatInput = document.getElementById('user_input');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        grantCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                grantCards.forEach(c => c.classList.remove('selected'));
+                // Add selected class to clicked card
+                this.classList.add('selected');
+                
+                const grantType = this.getAttribute('data-type');
+                const title = this.querySelector('.grant-title').textContent;
+                const description = this.querySelector('.grant-description').textContent;
+                
+                // Add user message
+                addMessage('user', `I'm interested in ${title.toLowerCase()} grants.`);
+                
+                // Add AI response
+                setTimeout(() => {
+                    addMessage('ai', `Great choice! ${title} grants are excellent for ${description.toLowerCase()}. Please provide more details about your specific project, including your goals, target audience, timeline, and budget requirements.`);
+                }, 1000);
+                
+                // Focus on input
+                chatInput.focus();
+            });
         });
         
-        // Add some interactive feedback
-        const textarea = document.getElementById('user_input');
-        const charCount = document.createElement('div');
-        charCount.style.cssText = 'text-align: right; font-size: 0.8rem; color: #7f8c8d; margin-top: 0.5rem;';
-        textarea.parentNode.appendChild(charCount);
+        function addMessage(sender, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${sender === 'ai' ? '🤖' : '👤'}</div>
+                <div class="message-content">
+                    <p>${content}</p>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
         
-        textarea.addEventListener('input', function() {
-            const count = this.value.length;
-            charCount.textContent = `${count} characters`;
+        // Form submission
+        document.getElementById('grantForm').addEventListener('submit', function(e) {
+            const sendBtn = document.querySelector('.send-button');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const userInput = chatInput.value.trim();
             
-            if (count > 0) {
-                charCount.style.color = '#27ae60';
-            } else {
-                charCount.style.color = '#7f8c8d';
+            if (userInput) {
+                // Add user message
+                addMessage('user', userInput);
+                
+                // Clear input
+                chatInput.value = '';
+                updateCharCounter();
+                
+                // Show loading
+                sendBtn.style.display = 'none';
+                loadingIndicator.style.display = 'block';
             }
         });
         
-        // Add floating animation to feature cards
-        const cards = document.querySelectorAll('.feature-card');
-        cards.forEach((card, index) => {
-            card.style.animationDelay = `${0.8 + index * 0.2}s`;
-            card.style.animation = 'fadeInUp 1s ease-out both';
+        // Character counter
+        function updateCharCounter() {
+            const count = chatInput.value.length;
+            const counter = document.getElementById('charCounter');
+            counter.textContent = `${count} characters`;
+            
+            if (count > 0) {
+                counter.style.color = '#27ae60';
+            } else {
+                counter.style.color = '#7f8c8d';
+            }
+        }
+        
+        chatInput.addEventListener('input', updateCharCounter);
+        
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+        });
+        
+        // Animate feature cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease-out both';
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Enhanced hover effects
+        const cards = document.querySelectorAll('.grant-type-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        });
+        
+        // Smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const style = document.createElement('style');
+            style.textContent = `
+                html {
+                    scroll-behavior: smooth;
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
