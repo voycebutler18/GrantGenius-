@@ -379,10 +379,9 @@ logging.basicConfig(
 )
 
 @app.route('/')
-def home():
+def index():  # or whatever you renamed the function to
     """Main page with form to submit grant requests"""
-    return render_template('home.html')
-    
+    return render_template('index.html')  # NOT 'home.html'
 
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
