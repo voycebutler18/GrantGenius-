@@ -633,7 +633,7 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
             return render_template_safe('index.html', error=error_msg)
 
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
 
 @app.route('/about')
