@@ -1,33 +1,34 @@
-from flask import Flask, request
-from twilio.twiml.messaging_response import MessagingResponse
+from flask import Flask, request, jsonify
 import openai
 import os
 
 app = Flask(__name__)
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Get your OpenAI API key from environment variable
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+@app.route('/')
+def home():
+    return 'Welcome to GrantGenius – Your AI Grant Helper!'
 
-@app.route("/sms", methods=["POST"])
-def sms_reply():
-    incoming_msg = request.values.get("Body", "")
-    from_number = request.values.get("From", "")
+@app.route('/generate', methods=['POST'])
+def generate_grant_response():
+    data = request.get_json()
+    user_prompt = data.get("prompt")
 
-    # Generate response from OpenAI
+    if not user_prompt:
+        return jsonify({"error": "Prompt is required"}), 400
+
     try:
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": incoming_msg}]
+        response = openai.ChatCompletion.create(
+            model="gpt-4",  # ← Using GPT-4 here
+            messages=[
+                {"role": "system", "content": "You are a professional grant writing assistant. Help the user write winning grant answers with strong logic and detail."},
+                {"role": "user", "content": user_prompt}
+            ]
         )
-        reply = completion.choices[0].message.content.strip()
+        reply = response.choices[0].message.content
+        return jsonify({"response": reply})
     except Exception as e:
-        reply = f"Error: {str(e)}"
+        return jsonify({"error": str(e)}), 500
 
-    # Send SMS reply via Twilio
-    twilio_response = MessagingResponse()
-    twilio_response.message(reply)
-    return str(twilio_response)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Required for Render
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run()
