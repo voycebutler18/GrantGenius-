@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from openai import OpenAI
+from flask import Flask, request, jsonify
 import os
 import logging
 
@@ -11,6 +12,9 @@ app = Flask(__name__)
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Load sensitive credentials from Render environment variables
+API_KEY = os.getenv("GOOGLE_API_KEY")
+SEARCH_ENGINE_ID = os.getenv("GOOGLE_CSE_ID")
 
 @app.route('/')
 def home():
@@ -27,6 +31,29 @@ def result():
     """Display result page (typically reached after generation)"""
     # This could be used for direct access to result page
     return render_template('result.html', output="No content generated yet. Please submit a request first.")
+    @app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query')
+    location = request.args.get('location')
+
+    if not query:
+        return jsonify({"error": "Query is required"}), 400
+
+    full_query = f"{query} grants in {location}" if location else f"{query} grants"
+
+    url = "https://www.googleapis.com/customsearch/v1"
+    params = {
+        "key": API_KEY,
+        "cx": SEARCH_ENGINE_ID,
+        "q": full_query,
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        return jsonify(response.json())
+    else:
+        return jsonify({"error": "Failed to fetch search results"}), response.status_code
 
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
