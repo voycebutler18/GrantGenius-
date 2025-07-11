@@ -360,6 +360,10 @@ def remove_duplicates(results):
     
     return unique_results
 
+@app.route('/')
+def home():
+    return "Hello World"
+
 # Add a test endpoint to debug the search
 @app.route('/search/test', methods=['GET'])
 def test_search():
