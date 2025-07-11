@@ -33,83 +33,254 @@ def result():
     """Display result page (typically reached after generation)"""
     # This could be used for direct access to result page
     return render_template('result.html', output="No content generated yet. Please submit a request first.")
+import requests
+import json
+from flask import request, jsonify
+import logging
+
+logger = logging.getLogger(__name__)
+
 @app.route('/search', methods=['GET'])
 def search_grants():
-    """Search for grants using Google Custom Search API or web scraping"""
+    """Search for grants across the entire web - foundations, corporations, nonprofits, government"""
     query = request.args.get('query', '')
     location = request.args.get('location', '')
     
     if not query:
         return jsonify({"error": "Query parameter is required"}), 400
     
-    # Construct search query
-    search_query = f"{query} grants"
-    if location:
-        search_query += f" {location}"
-    
     try:
-        # Option 1: Use Google Custom Search API (if you have API credentials)
-        GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-        SEARCH_ENGINE_ID = os.getenv('SEARCH_ENGINE_ID')
+        # Build comprehensive search queries for different types of grants
+        search_queries = []
         
-        if GOOGLE_API_KEY and SEARCH_ENGINE_ID:
-            import requests
-            url = "https://www.googleapis.com/customsearch/v1"
-            params = {
-                'key': GOOGLE_API_KEY,
-                'cx': SEARCH_ENGINE_ID,
-                'q': search_query + " site:grants.gov OR site:foundation.org OR funding",
-                'num': 5  # Number of results to return
-            }
-            response = requests.get(url, params=params, timeout=10)
-            
-            if response.status_code == 200:
-                data = response.json()
-                return jsonify(data)
-            else:
-                logger.error(f"Google API error: {response.status_code}")
-                # Fall back to mock data
+        # Base grant search
+        base_query = f"{query} grants funding opportunities"
+        if location:
+            base_query += f" {location}"
+        search_queries.append(base_query)
         
-        # Option 2: Mock data (for testing or when API is not available)
-        mock_results = {
-            "items": [
-                {
-                    "title": f"{query.title()} Grants Available in {location or 'Your Area'}",
-                    "link": "https://www.grants.gov/search-grants",
-                    "snippet": f"Find {query} grants and funding opportunities. Federal and state funding available for qualifying projects in {location or 'your area'}."
-                },
-                {
-                    "title": "Community Development Block Grant Program",
-                    "link": "https://www.hud.gov/program_offices/comm_planning/cdbg",
-                    "snippet": "The Community Development Block Grant (CDBG) program provides funding to help communities develop viable urban communities."
-                },
-                {
-                    "title": f"Foundation Grants for {query.title()}",
-                    "link": "https://foundationcenter.org/",
-                    "snippet": f"Private foundation grants available for {query} projects. Search our database of foundation funding opportunities."
-                },
-                {
-                    "title": "State and Local Grant Programs",
-                    "link": "https://www.usa.gov/grants",
-                    "snippet": f"Explore state and local grant programs for {query} in {location or 'your state'}. Government funding at all levels."
-                },
-                {
-                    "title": f"Federal {query.title()} Funding Opportunities",
-                    "link": "https://www.grants.gov/web/grants/search-grants.html",
-                    "snippet": f"Search federal grant opportunities for {query} projects. Updated daily with new funding announcements."
-                }
-            ]
-        }
+        # Foundation grants
+        foundation_query = f"{query} foundation grants private funding"
+        if location:
+            foundation_query += f" {location}"
+        search_queries.append(foundation_query)
         
-        logger.info(f"Search performed for: {search_query}")
-        return jsonify(mock_results)
+        # Corporate grants
+        corporate_query = f"{query} corporate grants business funding sponsorship"
+        if location:
+            corporate_query += f" {location}"
+        search_queries.append(corporate_query)
+        
+        # Nonprofit grants
+        nonprofit_query = f"{query} nonprofit grants charitable funding"
+        if location:
+            nonprofit_query += f" {location}"
+        search_queries.append(nonprofit_query)
+        
+        all_results = []
+        
+        # Perform multiple searches to get comprehensive results
+        for search_query in search_queries:
+            try:
+                # Use a web search API (you'll need to configure this with your preferred service)
+                # Example using SerpAPI, Bing Search API, or Google Custom Search
+                search_results = perform_web_search(search_query)
+                
+                if search_results and 'items' in search_results:
+                    # Filter and format results
+                    filtered_results = filter_grant_results(search_results['items'], query)
+                    all_results.extend(filtered_results)
+                    
+            except Exception as search_error:
+                logger.warning(f"Search failed for query '{search_query}': {str(search_error)}")
+                continue
+        
+        # Remove duplicates and rank results
+        unique_results = remove_duplicates(all_results)
+        ranked_results = rank_grant_results(unique_results, query, location)
+        
+        # Limit to top 20 results
+        final_results = ranked_results[:20]
+        
+        logger.info(f"Found {len(final_results)} grant opportunities for: {query}")
+        
+        return jsonify({
+            "query": query,
+            "location": location,
+            "total_results": len(final_results),
+            "items": final_results
+        })
         
     except Exception as e:
-        logger.error(f"Search error: {str(e)}")
+        logger.error(f"Grant search error: {str(e)}")
         return jsonify({
             "error": "Search service temporarily unavailable",
             "items": []
         }), 500
+
+def perform_web_search(query):
+    """Perform actual web search using your preferred search API"""
+    
+    # Option 1: Google Custom Search API
+    # GOOGLE_API_KEY = "your_google_api_key"
+    # SEARCH_ENGINE_ID = "your_search_engine_id"
+    # url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_API_KEY}&cx={SEARCH_ENGINE_ID}&q={query}"
+    
+    # Option 2: Bing Search API
+    # BING_API_KEY = "your_bing_api_key"
+    # url = "https://api.bing.microsoft.com/v7.0/search"
+    # headers = {"Ocp-Apim-Subscription-Key": BING_API_KEY}
+    # params = {"q": query, "count": 10}
+    
+    # Option 3: SerpAPI
+    SERPAPI_KEY = "your_serpapi_key"  # Get from serpapi.com
+    url = "https://serpapi.com/search"
+    params = {
+        "q": query,
+        "api_key": SERPAPI_KEY,
+        "engine": "google",
+        "num": 10
+    }
+    
+    try:
+        response = requests.get(url, params=params, timeout=10)
+        response.raise_for_status()
+        
+        data = response.json()
+        
+        # Format results based on API response structure
+        if "organic_results" in data:  # SerpAPI format
+            formatted_results = {
+                "items": [
+                    {
+                        "title": result.get("title", ""),
+                        "link": result.get("link", ""),
+                        "snippet": result.get("snippet", "")
+                    }
+                    for result in data["organic_results"]
+                ]
+            }
+            return formatted_results
+        elif "webPages" in data:  # Bing format
+            return {
+                "items": [
+                    {
+                        "title": item.get("name", ""),
+                        "link": item.get("url", ""),
+                        "snippet": item.get("snippet", "")
+                    }
+                    for item in data["webPages"]["value"]
+                ]
+            }
+        elif "items" in data:  # Google Custom Search format
+            return data
+            
+    except requests.RequestException as e:
+        logger.error(f"Web search API error: {str(e)}")
+        raise
+
+def filter_grant_results(results, query):
+    """Filter search results to focus on actual grant opportunities"""
+    
+    # Keywords that indicate legitimate grant opportunities
+    grant_keywords = [
+        "grant", "funding", "fellowship", "scholarship", "award", "foundation",
+        "nonprofit", "charitable", "donation", "sponsor", "financial support",
+        "apply", "application", "deadline", "eligibility", "requirements"
+    ]
+    
+    # Keywords that indicate scams or irrelevant results
+    exclude_keywords = [
+        "loan", "credit", "debt", "personal finance", "get rich quick",
+        "guaranteed", "no application", "instant approval", "scam"
+    ]
+    
+    filtered = []
+    
+    for result in results:
+        title = result.get("title", "").lower()
+        snippet = result.get("snippet", "").lower()
+        combined_text = f"{title} {snippet}"
+        
+        # Check if result contains grant-related keywords
+        has_grant_keywords = any(keyword in combined_text for keyword in grant_keywords)
+        
+        # Check if result contains excluded keywords
+        has_exclude_keywords = any(keyword in combined_text for keyword in exclude_keywords)
+        
+        # Filter based on domain reputation (optional)
+        link = result.get("link", "")
+        is_reputable_domain = is_reputable_grant_domain(link)
+        
+        if has_grant_keywords and not has_exclude_keywords and is_reputable_domain:
+            filtered.append(result)
+    
+    return filtered
+
+def is_reputable_grant_domain(url):
+    """Check if domain is from a reputable source"""
+    reputable_domains = [
+        "grants.gov", "foundation", "nonprofit", "charity", "edu", "org",
+        "gov", "hud.gov", "nih.gov", "nsf.gov", "usda.gov", "epa.gov",
+        "fordFoundation", "gatesfoundation", "rockefellerfoundation",
+        "guidestar", "candid.org", "councilofnonprofits"
+    ]
+    
+    return any(domain in url.lower() for domain in reputable_domains)
+
+def remove_duplicates(results):
+    """Remove duplicate results based on URL"""
+    seen_urls = set()
+    unique_results = []
+    
+    for result in results:
+        url = result.get("link", "")
+        if url not in seen_urls:
+            seen_urls.add(url)
+            unique_results.append(result)
+    
+    return unique_results
+
+def rank_grant_results(results, query, location):
+    """Rank results based on relevance to query and location"""
+    
+    def calculate_relevance_score(result):
+        title = result.get("title", "").lower()
+        snippet = result.get("snippet", "").lower()
+        combined_text = f"{title} {snippet}"
+        
+        score = 0
+        
+        # Query relevance
+        query_words = query.lower().split()
+        for word in query_words:
+            if word in combined_text:
+                score += 2
+        
+        # Location relevance
+        if location:
+            location_words = location.lower().split()
+            for word in location_words:
+                if word in combined_text:
+                    score += 1
+        
+        # Boost for certain high-value keywords
+        high_value_keywords = ["deadline", "apply", "application", "funding available"]
+        for keyword in high_value_keywords:
+            if keyword in combined_text:
+                score += 3
+        
+        # Boost for government and foundation sources
+        url = result.get("link", "").lower()
+        if any(domain in url for domain in ["gov", "foundation", "org"]):
+            score += 1
+        
+        return score
+    
+    # Sort by relevance score (highest first)
+    ranked = sorted(results, key=calculate_relevance_score, reverse=True)
+    
+    return ranked
 
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
