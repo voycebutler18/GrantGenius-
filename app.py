@@ -632,10 +632,6 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
         else:
             return render_template_safe('index.html', error=error_msg)
 
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
 @app.route('/')
 def index():
     return render_template('index.html')
