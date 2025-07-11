@@ -379,9 +379,8 @@ logging.basicConfig(
 )
 
 @app.route('/')
-def index():  # or whatever you renamed the function to
-    """Main page with form to submit grant requests"""
-    return render_template('index.html')  # NOT 'home.html'
+def index():
+    return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
 def generate_grant_response():
@@ -491,10 +490,16 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+@app.route('/templates/page')
+def templates_page():
+    return render_template('templates.html')
 
 @app.route('/health', methods=['GET'])
 def health_check():
