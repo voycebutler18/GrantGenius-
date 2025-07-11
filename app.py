@@ -488,6 +488,13 @@ Always focus on the specific requirements of the grant opportunity and tailor yo
             return jsonify({"error": error_msg}), status_code
         else:
             return render_template('index.html', error=error_msg)
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 
 @app.route('/health', methods=['GET'])
 def health_check():
