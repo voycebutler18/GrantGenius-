@@ -1,20 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GrantGenius - Free Grant Proposal Generator</title>
+    <meta charset="UTF-8">
+    <title>GrantGenius – AI Grant Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        p {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #0073e6;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 25px auto 0;
+        }
+        input[type="submit"]:hover {
+            background-color: #005bb5;
+        }
+    </style>
 </head>
 <body>
-    <h1>GrantGenius</h1>
-    <form action="/generate" method="post">
-        <input name="name" placeholder="Your Name" required><br>
-        <input name="business" placeholder="Business Name" required><br>
-        <input name="goal" placeholder="What is the grant for?" required><br>
-        <select name="grant_type">
-            <option value="Small Business">Small Business</option>
-            <option value="Non-Profit">Non-Profit</option>
-            <option value="Startup">Startup</option>
-        </select><br>
-        <button type="submit">Generate Grant</button>
-    </form>
+    <div class="container">
+        <h1>GrantGenius</h1>
+        <p>Your AI-Powered Grant Assistant</p>
+        <form method="post" action="/generate">
+            <label for="user_input">What kind of grant are you applying for?</label><br>
+            <textarea id="user_input" name="user_input" rows="8" placeholder="Example: I need funding to start a youth outreach nonprofit that focuses on mental health and education."></textarea><br>
+            <input type="submit" value="Generate Grant Text">
+        </form>
+    </div>
 </body>
 </html>
