@@ -20,11 +20,6 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 API_KEY = os.getenv("GOOGLE_API_KEY")
 SEARCH_ENGINE_ID = os.getenv("GOOGLE_CSE_ID")
 
-@app.route('/')
-def home():
-    """Main page with form to submit grant requests"""
-    return render_template('index.html')
-
 @app.route('/about')
 def about():
     """About page explaining GrantGenius"""
