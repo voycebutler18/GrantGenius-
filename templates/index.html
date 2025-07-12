@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grant Genius Hub- AI-Powered Grant Assistant</title>
+    <title>GrantGenius - AI-Powered Grant Assistant</title>
     <style>
         * {
             margin: 0;
@@ -381,7 +381,7 @@
     <div class="container">
         <header>
             <nav class="nav">
-                <a href="{{ url_for('home') }}" class="logo">Grant Genius Hub</a>
+                <a href="{{ url_for('home') }}" class="logo">GrantGenius</a>
                 <div class="nav-links">
                     <a href="{{ url_for('home') }}" class="active">Home</a>
                     <a href="{{ url_for('about') }}">About</a>
@@ -391,7 +391,7 @@
         </header>
 
         <div class="hero">
-            <h1>Grant Genius Hub</h1>
+            <h1>GrantGenius</h1>
             <p>Your AI-Powered Grant Assistant</p>
             <div class="subtext">Transform your funding ideas into professional grant proposals with intelligent conversation</div>
         </div>
@@ -528,49 +528,25 @@
         }
 
         // Handle form submission
-document.getElementById('grantForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
-    
-    const submitBtn = document.getElementById('submitBtn');
-    const loadingDiv = document.getElementById('loadingDiv');
-    const prompt = document.getElementById('prompt').value;
-    
-    if (!prompt.trim()) {
-        alert('Please enter a description of your project.');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>Generating...</span>';
-    loadingDiv.classList.add('active');
-    
-    // Simulate API call (replace with actual API call)
-    setTimeout(() => {
-        // Hide loading
-        loadingDiv.classList.remove('active');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Generate Proposal</span><span>→</span>';
-        
-        // Show generated content
-        showGeneratedContent(prompt);
-    }, 3000);
-});
+        document.getElementById('grantForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingDiv = document.getElementById('loadingDiv');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Generating...</span>';
+            loadingDiv.classList.add('active');
+        });
 
-function showGeneratedContent(prompt) {
-    const resultsDiv = document.createElement('div');
-    resultsDiv.className = 'assistant-message';
-    resultsDiv.innerHTML = `
-        <div class="message-avatar">🤖</div>
-        <div class="message-content">
-            <h3>Generated Grant Proposal Content:</h3>
-            <p><strong>Your Request:</strong> "${prompt}"</p>
-            <p>Here's your customized grant proposal section... (This would be the actual AI-generated content)</p>
-        </div>
-    `;
-    
-    document.querySelector('.main-card').appendChild(resultsDiv);
-}
+        // Check for template from localStorage (from templates page)
+        window.addEventListener('load', function() {
+            const selectedTemplate = localStorage.getItem('selectedTemplate');
+            if (selectedTemplate) {
+                document.getElementById('prompt').value = selectedTemplate;
+                updateCharCount();
+                localStorage.removeItem('selectedTemplate');
+            }
+        });
 
         document.getElementById('liveSearchForm').addEventListener('submit', async function(e) {
             e.preventDefault();
