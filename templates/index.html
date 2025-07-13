@@ -386,6 +386,221 @@
                 flex-direction: column;
             }
         }
+/* Walking AI Character */
+.walking-ai {
+    position: fixed;
+    width: 100px;
+    height: 120px;
+    z-index: 9999;
+    cursor: pointer;
+    transition: none;
+    pointer-events: auto;
+}
+
+.ai-character-body {
+    position: relative;
+    width: 60px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+.ai-head {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto 5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    animation: headBob 0.6s ease-in-out infinite alternate;
+}
+
+.ai-eyes {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.eye {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: eyeBlink 3s infinite;
+}
+
+.ai-mouth {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 6px;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    animation: mouthTalk 0.8s ease-in-out infinite;
+}
+
+.ai-torso {
+    width: 40px;
+    height: 35px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 8px;
+    margin: 0 auto 5px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.ai-arms {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arm {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 8px;
+    animation: armSwing 0.6s ease-in-out infinite alternate;
+}
+
+.arm.left {
+    left: -10px;
+    transform-origin: top center;
+}
+
+.arm.right {
+    right: -10px;
+    transform-origin: top center;
+    animation-delay: 0.3s;
+}
+
+.ai-legs-container {
+    position: relative;
+    width: 40px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+.leg {
+    position: absolute;
+    width: 12px;
+    height: 25px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 6px;
+    transform-origin: top center;
+    animation: legWalk 0.6s ease-in-out infinite;
+}
+
+.leg.left {
+    left: 8px;
+}
+
+.leg.right {
+    right: 8px;
+    animation-delay: 0.3s;
+}
+
+.ai-shadow {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    animation: shadowMove 0.6s ease-in-out infinite alternate;
+}
+
+/* Speech Bubble */
+.speech-bubble {
+    position: absolute;
+    background: white;
+    border: 3px solid #667eea;
+    border-radius: 20px;
+    padding: 10px 15px;
+    max-width: 200px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 10000;
+    white-space: nowrap;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+}
+
+.speech-bubble.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #667eea;
+}
+
+/* Animations */
+@keyframes headBob {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-3px); }
+}
+
+@keyframes eyeBlink {
+    0%, 95% { transform: scaleY(1); }
+    97% { transform: scaleY(0.1); }
+    99% { transform: scaleY(1); }
+}
+
+@keyframes mouthTalk {
+    0%, 100% { transform: translateX(-50%) scaleY(1); }
+    50% { transform: translateX(-50%) scaleY(0.5); }
+}
+
+@keyframes armSwing {
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(15deg); }
+}
+
+@keyframes legWalk {
+    0% { transform: rotate(-20deg); }
+    50% { transform: rotate(0deg); }
+    100% { transform: rotate(20deg); }
+}
+
+@keyframes shadowMove {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(0.8); }
+}
+
+.walking-ai.talking .ai-mouth {
+    animation: mouthTalk 0.3s ease-in-out infinite;
+}
+
+.walking-ai.talking .ai-head {
+    animation: headBob 0.4s ease-in-out infinite alternate;
+}      
     </style>
 </head>
 <body>
@@ -636,5 +851,219 @@
     <h3>Support & Questions</h3>
     <p>Need help with your account or have privacy concerns? Our support team is here to assist you. Call us at 720-306-1898 for immediate assistance with any privacy-related questions or requests.</p>
 </div>
+<div class="walking-ai" id="walkingAI">
+    <div class="speech-bubble" id="speechBubble">
+        Hello! I'm your Grant Assistant! 👋
+    </div>
+    <div class="ai-character-body">
+        <div class="ai-head">
+            <div class="ai-eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+            <div class="ai-mouth"></div>
+        </div>
+        <div class="ai-torso">
+            <div class="ai-arms">
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+            </div>
+        </div>
+        <div class="ai-legs-container">
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+        </div>
+        <div class="ai-shadow"></div>
+    </div>
+</div>
+
+<!-- ADD THIS JAVASCRIPT RIGHT BEFORE THE CLOSING </body> TAG -->
+
+<script>
+class WalkingAI {
+    constructor() {
+        this.character = document.getElementById('walkingAI');
+        this.speechBubble = document.getElementById('speechBubble');
+        this.currentX = Math.random() * (window.innerWidth - 100);
+        this.currentY = Math.random() * (window.innerHeight - 150) + 50;
+        this.targetX = this.currentX;
+        this.targetY = this.currentY;
+        this.speed = 1;
+        this.isMoving = false;
+        this.direction = 1; // 1 for right, -1 for left
+        
+        this.messages = [
+            "Hi! Need help with grants? 💰",
+            "I can help you write proposals! 📝",
+            "Looking for funding opportunities? 🔍",
+            "Click me to get started! 🚀",
+            "Grant writing made easy! ✨",
+            "Let's secure your funding! 🎯",
+            "Need a budget plan? 📊",
+            "I'm here to help! 😊",
+            "Ready to write grants? 💪",
+            "Funding success awaits! 🌟"
+        ];
+        
+        this.init();
+    }
+    
+    init() {
+        this.character.style.left = this.currentX + 'px';
+        this.character.style.top = this.currentY + 'px';
+        
+        // Start moving after a delay
+        setTimeout(() => {
+            this.startWalking();
+        }, 2000);
+        
+        // Show initial message
+        this.showMessage();
+        
+        // Click handler
+        this.character.addEventListener('click', () => {
+            this.onCharacterClick();
+        });
+        
+        // Regular movement
+        setInterval(() => {
+            this.moveToRandomPosition();
+        }, 5000);
+        
+        // Regular messages
+        setInterval(() => {
+            this.showMessage();
+        }, 8000);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            this.handleResize();
+        });
+    }
+    
+    startWalking() {
+        this.moveToRandomPosition();
+    }
+    
+    moveToRandomPosition() {
+        const margin = 100;
+        this.targetX = Math.random() * (window.innerWidth - margin - 100) + margin;
+        this.targetY = Math.random() * (window.innerHeight - 200) + 50;
+        
+        this.startMoving();
+    }
+    
+    startMoving() {
+        if (this.isMoving) return;
+        
+        this.isMoving = true;
+        const deltaX = this.targetX - this.currentX;
+        const deltaY = this.targetY - this.currentY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        
+        if (distance < 5) {
+            this.isMoving = false;
+            return;
+        }
+        
+        // Set direction based on movement
+        this.direction = deltaX > 0 ? 1 : -1;
+        this.character.style.transform = `scaleX(${this.direction})`;
+        
+        const stepX = (deltaX / distance) * this.speed;
+        const stepY = (deltaY / distance) * this.speed;
+        
+        const moveStep = () => {
+            if (!this.isMoving) return;
+            
+            this.currentX += stepX;
+            this.currentY += stepY;
+            
+            this.character.style.left = this.currentX + 'px';
+            this.character.style.top = this.currentY + 'px';
+            
+            const newDistance = Math.sqrt(
+                (this.targetX - this.currentX) ** 2 + 
+                (this.targetY - this.currentY) ** 2
+            );
+            
+            if (newDistance > 5) {
+                requestAnimationFrame(moveStep);
+            } else {
+                this.isMoving = false;
+            }
+        };
+        
+        requestAnimationFrame(moveStep);
+    }
+    
+    showMessage() {
+        const message = this.messages[Math.floor(Math.random() * this.messages.length)];
+        this.speechBubble.textContent = message;
+        this.speechBubble.classList.add('show');
+        this.character.classList.add('talking');
+        
+        setTimeout(() => {
+            this.speechBubble.classList.remove('show');
+            this.character.classList.remove('talking');
+        }, 3000);
+    }
+    
+    onCharacterClick() {
+        // Stop current movement
+        this.isMoving = false;
+        
+        // Show special message
+        this.speechBubble.textContent = "Hi! I'm your Grant Assistant! How can I help you today?";
+        this.speechBubble.classList.add('show');
+        this.character.classList.add('talking');
+        
+        // Redirect to chat or main form
+        setTimeout(() => {
+            const promptTextarea = document.getElementById('prompt');
+            if (promptTextarea) {
+                promptTextarea.focus();
+                promptTextarea.value = "Hi! I'd like help with ";
+            }
+        }, 1000);
+        
+        setTimeout(() => {
+            this.speechBubble.classList.remove('show');
+            this.character.classList.remove('talking');
+            // Resume walking
+            setTimeout(() => {
+                this.moveToRandomPosition();
+            }, 2000);
+        }, 4000);
+    }
+    
+    handleResize() {
+        const maxX = window.innerWidth - 100;
+        const maxY = window.innerHeight - 150;
+        
+        if (this.currentX > maxX) this.currentX = maxX;
+        if (this.currentY > maxY) this.currentY = maxY;
+        if (this.currentX < 0) this.currentX = 0;
+        if (this.currentY < 50) this.currentY = 50;
+        
+        this.character.style.left = this.currentX + 'px';
+        this.character.style.top = this.currentY + 'px';
+    }
+}
+
+// Initialize the walking AI when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new WalkingAI();
+});
+
+// Fallback initialization
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new WalkingAI();
+    });
+} else {
+    new WalkingAI();
+}
+</script>
 </body>
 </html>
