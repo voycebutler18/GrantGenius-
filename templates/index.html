@@ -1,48 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYX6KH44X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CDYX6KH44X');
-</script>
-<!-- ✅ Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7998800421976252" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYX6KH44X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CDYX6KH44X');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7998800421976252" crossorigin="anonymous"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grant Genius Hub - AI-Powered Grant Assistant</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        * {
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        /* CSS Variables for a consistent design system */
+        :root {
+            --primary-color: #6D28D9; /* Deep Purple */
+            --primary-light: #8B5CF6;
+            --secondary-color: #10B981; /* Emerald Green */
+            --bg-light: #F9FAFB; /* Light Gray Background */
+            --bg-white: #FFFFFF;
+            --text-dark: #1F2937; /* Dark Gray for Text */
+            --text-medium: #4B5563;
+            --text-light: #6B7280;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --border-radius-md: 0.75rem; /* 12px */
+            --border-radius-lg: 1rem; /* 16px */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 24px;
         }
 
-        header {
-            background: rgba(255, 255, 255, 0.1);
+        /* Header & Navigation */
+        .site-header {
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .nav {
@@ -52,255 +79,276 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
             text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 8px;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-medium);
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
         .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            color: var(--primary-color);
+            background-color: #F3F4F6;
         }
 
         .nav-links a.active {
-            background: rgba(255, 255, 255, 0.3);
+            background-color: var(--primary-color);
+            color: var(--bg-white);
         }
 
+        /* Hero Section */
         .hero {
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
+            padding: 80px 0;
+            background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23e5e7eb'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            color: var(--primary-color);
         }
 
         .hero p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            max-width: 700px;
+            margin: 0 auto 24px auto;
         }
 
-        .hero .subtext {
-            font-size: 1.1rem;
-            opacity: 0.8;
+        /* Main Content & Cards */
+        .main-content {
+            padding: 64px 0;
         }
-
+        
         .main-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
             padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 48px;
+            border: 1px solid var(--border-color);
         }
-
-        .assistant-header {
+        
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 32px;
         }
 
-        .assistant-avatar {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .section-avatar {
+            width: 56px;
+            height: 56px;
+            background-color: #F3F4F6;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: white;
+            font-size: 1.75rem;
+            flex-shrink: 0;
         }
 
-        .assistant-info h2 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 5px;
+        .section-info h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
-        .assistant-info p {
-            color: #666;
-            font-size: 1.1rem;
+        .section-info p {
+            color: var(--text-light);
+            font-size: 1rem;
         }
 
+        /* Interactive Assistant Section */
         .categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
 
         .category {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 25px;
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            transition: all 0.2s ease;
         }
 
         .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
         }
 
         .category-icon {
             font-size: 2.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .category h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         .category p {
-            color: #666;
+            color: var(--text-light);
             font-size: 0.9rem;
         }
 
         .assistant-message {
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
+            background-color: #F5F3FF; /* Light Purple */
+            border-radius: var(--border-radius-md);
             padding: 20px;
-            margin-bottom: 30px;
-            border-left: 4px solid #667eea;
+            margin-bottom: 32px;
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
         }
 
         .assistant-message .message-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-            float: left;
-            margin-right: 15px;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
-
+        
         .assistant-message .message-content {
-            color: #555;
-            font-size: 1rem;
-            line-height: 1.6;
+            color: var(--text-medium);
+            padding-top: 2px;
         }
-
-        .form-container {
-            margin-top: 30px;
-        }
-
+        
+        /* Form Styling */
         .form-group {
             position: relative;
-            margin-bottom: 20px;
         }
 
         .form-group textarea {
             width: 100%;
-            min-height: 120px;
-            padding: 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
+            min-height: 150px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
             font-size: 1rem;
             font-family: inherit;
             resize: vertical;
-            transition: all 0.3s ease;
-            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-group textarea::placeholder {
-            color: #999;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
         }
 
         .char-counter {
             position: absolute;
-            bottom: 10px;
-            right: 15px;
+            bottom: 12px;
+            right: 16px;
             font-size: 0.8rem;
-            color: #999;
+            color: var(--text-light);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            background-color: #F3F4F6;
+            color: var(--text-medium);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .quick-action:hover {
+            background-color: #E5E7EB;
+            color: var(--text-dark);
         }
 
         .submit-container {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
+            align-items: center;
         }
 
         .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border: 1px solid transparent;
+            border-radius: 9999px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
-
+        
         .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--bg-white);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            background-color: var(--primary-light);
         }
-
+        
         .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
+            background-color: var(--primary-color);
         }
 
         .btn-secondary {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background-color: var(--bg-white);
+            color: var(--text-medium);
+            border-color: var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: rgba(102, 126, 234, 0.2);
+            background-color: #F3F4F6;
+            border-color: #D1D5DB;
         }
-
+        
         .loading {
             display: none;
             text-align: center;
             padding: 20px;
-            color: #667eea;
+            color: var(--primary-color);
         }
 
         .loading.active {
@@ -308,283 +356,361 @@
         }
 
         .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
+            border: 3px solid #E5E7EB;
+            border-top: 3px solid var(--primary-color);
             border-radius: 50%;
             width: 30px;
             height: 30px;
             animation: spin 1s linear infinite;
             margin: 0 auto 10px;
         }
+        
+        .error-message {
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 16px;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 24px;
+            border: 1px solid #FCA5A5;
+        }
 
+        /* General Content Card Styles */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card-item {
+            background-color: var(--bg-light);
+            padding: 24px;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+        }
+        
+        .info-card-item h3 {
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .info-card-item p, .info-card-item ul {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Success Stories Specific Styles */
+        .success-story {
+            padding: 24px;
+            border-radius: var(--border-radius-md);
+            border-left-width: 4px;
+            border-left-style: solid;
+        }
+        .success-story.health {
+            background-color: #F0FDF4; border-color: #22C55E;
+        }
+        .success-story.education {
+            background-color: #EFF6FF; border-color: #3B82F6;
+        }
+        .success-story.environment {
+            background-color: #FFFBEB; border-color: #F59E0B;
+        }
+        .success-story h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .success-story.health h4, .success-story.health p { color: #166534; }
+        .success-story.education h4, .success-story.education p { color: #1E40AF; }
+        .success-story.environment h4, .success-story.environment p { color: #92400E; }
+        
+        /* Grant Types Specific Styles */
+        .grant-type-card {
+            border: 2px solid;
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+        }
+        .grant-type-card h4 { margin-bottom: 16px; font-size: 1.125rem; }
+        .grant-type-card ul { list-style-position: inside; color: var(--text-medium); line-height: 1.8; }
+        
+        .grant-type-federal { border-color: var(--primary-color); }
+        .grant-type-federal h4 { color: var(--primary-color); }
+        
+        .grant-type-foundation { border-color: var(--secondary-color); }
+        .grant-type-foundation h4 { color: var(--secondary-color); }
+
+        .grant-type-state { border-color: #EF4444; }
+        .grant-type-state h4 { color: #EF4444; }
+
+        /* Process Section Specific Styles */
+        .process-list { display: flex; flex-direction: column; gap: 24px; }
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .process-step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .process-step-number.step-2 { background-color: var(--secondary-color); }
+        .process-step-number.step-3 { background-color: #EF4444; }
+        .process-step-number.step-4 { background-color: #F59E0B; }
+        .process-step-content h4 { font-weight: 600; margin-bottom: 4px; }
+        .process-step-content p { color: var(--text-medium); }
+
+        /* FAQ Section Specific Styles */
+        .faq-list { display: flex; flex-direction: column; gap: 20px; }
+        .faq-item {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--border-radius-md);
+            border-left: 4px solid;
+        }
+        .faq-item h4 { font-weight: 600; margin-bottom: 10px; }
+        .faq-item p { color: var(--text-medium); }
+        .faq-item:nth-child(1) { border-color: var(--primary-color); }
+        .faq-item:nth-child(2) { border-color: var(--secondary-color); }
+        .faq-item:nth-child(3) { border-color: #EF4444; }
+        .faq-item:nth-child(4) { border-color: #F59E0B; }
+
+        /* News Section Specific Styles */
+        .news-article {
+            background-color: var(--bg-light);
+            padding: 24px;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .news-article h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
+        .news-article .date { color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
+        .news-article p { color: var(--text-medium); }
+
+        /* Privacy Policy Specific Styles */
+        .privacy-content h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        .privacy-content p { color: var(--text-medium); margin-bottom: 24px; }
+        .privacy-content a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        .privacy-content a:hover { text-decoration: underline; }
+
+        /* Live Grant Search */
+        #liveSearchForm {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        #liveSearchForm input[type="text"] {
+            padding: 12px 16px;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+        #liveSearchForm input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+        }
+        #liveResults {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+            min-height: 100px;
+        }
+        #liveResults div { margin-bottom: 20px; }
+        #liveResults h3 a { color: var(--primary-color); text-decoration: none; }
+        #liveResults h3 a:hover { text-decoration: underline; }
+        #liveResults p { color: var(--text-medium); }
+        
+        /* Walking AI Character */
+        .walking-ai {
+            position: fixed;
+            width: 80px;
+            height: 100px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: top 0.1s linear, left 0.1s linear;
+        }
+        
+        .speech-bubble {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border-radius: var(--border-radius-md);
+            padding: 12px 16px;
+            width: max-content;
+            max-width: 200px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.9rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -10px);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--bg-white);
+        }
+
+        .ai-character-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .ai-head {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 10px;
+        }
+
+        .ai-eyes {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .eye {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .ai-mouth {
+            width: 20px;
+            height: 10px;
+            border-bottom: 3px solid white;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 12px;
+            left: 20px;
+        }
+
+        .ai-legs-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ai-legs-container .leg {
+            width: 8px;
+            height: 30px;
+            background: var(--text-dark);
+            border-radius: 4px;
+            position: absolute;
+            bottom: 0;
+            transform-origin: top center;
+        }
+
+        .leg.left {
+            left: -8px;
+            animation: walk-left 0.6s infinite;
+        }
+
+        .leg.right {
+            left: 0;
+            animation: walk-right 0.6s infinite;
+        }
+
+        .walking-ai.talking .ai-mouth {
+            animation: talk 0.4s infinite;
+        }
+
+        .ai-shadow {
+            width: 50px;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+        }
+
+        /* Animations */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes walk-left {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(20deg); }
+        }
+        @keyframes walk-right {
+            0%, 100% { transform: rotate(20deg); }
+            50% { transform: rotate(-20deg); }
+        }
+        @keyframes talk {
+            0%, 100% { height: 2px; }
+            50% { height: 10px; }
         }
 
-        .quick-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .quick-action {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .quick-action:hover {
-            background: rgba(102, 126, 234, 0.2);
-            transform: translateY(-1px);
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.125rem; }
         }
 
         @media (max-width: 768px) {
-            .nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .main-card {
-                padding: 20px;
-            }
-
-            .categories {
-                grid-template-columns: 1fr;
-            }
-
-            .assistant-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .submit-container {
-                flex-direction: column;
-            }
+            .nav { flex-direction: column; gap: 16px; }
+            .hero { padding: 64px 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .main-card { padding: 24px; }
+            .section-header { flex-direction: column; text-align: center; gap: 12px; }
+            .submit-container { flex-direction: column; align-items: stretch; }
+            .btn { justify-content: center; }
+            #liveSearchForm { flex-direction: column; }
+            #liveSearchForm input[type="text"] { width: 100%; }
         }
-.ai-character {
-    position: fixed;
-    width: 80px;
-    height: 80px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    z-index: 1000;
-    bottom: 20px;
-    right: 20px;
-}
-
-.ai-body {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 50%;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    animation: float 3s ease-in-out infinite;
-}
-
-.ai-face {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 24px;
-    /* REMOVED THE PROBLEMATIC ANIMATION */
-}
-
-.ai-glow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
-    animation: pulse 2s infinite;
-}
-
-.ai-legs {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 20px;
-}
-
-.leg {
-    position: absolute;
-    width: 8px;
-    height: 20px;
-    background: #667eea;
-    border-radius: 4px;
-    animation: walk 1s infinite;
-}
-
-.leg:nth-child(1) {
-    left: 6px;
-}
-
-.leg:nth-child(2) {
-    right: 6px;
-    animation-delay: 0.5s;
-}
-
-.ai-character.walking .leg {
-    animation-play-state: running;
-}
-
-.ai-character.walking {
-    animation: walkMove 4s linear infinite;
-}
-
-/* Chat Bubble */
-.chat-bubble {
-    position: fixed;
-    background: white;
-    border-radius: 20px;
-    padding: 15px 20px;
-    max-width: 300px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    z-index: 1001;
-    border: 2px solid #667eea;
-}
-
-.chat-bubble.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chat-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid white;
-}
-
-.chat-input {
-    position: fixed;
-    bottom: 120px;
-    right: 20px;
-    background: white;
-    border-radius: 25px;
-    padding: 10px 20px;
-    border: 2px solid #667eea;
-    width: 300px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    z-index: 1001;
-}
-
-.chat-input.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chat-input input {
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    padding: 5px;
-}
-
-.chat-input button {
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 5px 15px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-left: 10px;
-}
-
-/* Animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-/* REMOVED THE PROBLEMATIC BLINK ANIMATION */
-
-@keyframes pulse {
-    0% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
-    100% { opacity: 0.6; transform: scale(1); }
-}
-
-@keyframes walk {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(20deg); }
-}
-
-@keyframes walkMove {
-    0% { right: 20px; }
-    25% { right: 50%; }
-    50% { right: 20px; }
-    75% { right: 50%; }
-    100% { right: 20px; }
-}
-
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.typing-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #667eea;
-    animation: typing 1.4s infinite;
-}
-
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typing {
-    0%, 60%, 100% { opacity: 0.3; }
-    30% { opacity: 1; }
-}      
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <header class="site-header">
+        <div class="container">
             <nav class="nav">
                 <a href="{{ url_for('home') }}" class="logo">Grant Genius Hub</a>
                 <div class="nav-links">
@@ -593,312 +719,336 @@
                     <a href="{{ url_for('templates_page') }}">Templates</a>
                 </div>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <div class="hero">
-            <h1>Grant Genius Hub</h1>
-            <p>Your AI-Powered Grant Assistant</p>
-            <div class="subtext">Transform your funding ideas into professional grant proposals with intelligent conversation</div>
-        </div>
-        <div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">📚</div>
-        <div class="assistant-info">
-            <h2>Grant Writing Resources & Tips</h2>
-            <p>Expert guidance to help you succeed in securing funding</p>
-        </div>
-    </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 15px;">🎯 Writing Winning Proposals</h3>
-            <p style="color: #555; line-height: 1.6;">Learn the essential elements of successful grant proposals, including crafting compelling narratives, developing strong problem statements, and presenting clear objectives that resonate with funders.</p>
-        </div>
-        
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 15px;">💰 Budget Planning Strategies</h3>
-            <p style="color: #555; line-height: 1.6;">Master the art of budget creation with detailed justifications, cost-effectiveness analysis, and sustainability planning that demonstrates fiscal responsibility to grant reviewers.</p>
-        </div>
-        
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 15px;">📊 Evaluation & Metrics</h3>
-            <p style="color: #555; line-height: 1.6;">Develop comprehensive evaluation plans with measurable outcomes, data collection methods, and reporting frameworks that prove your project's impact and effectiveness.</p>
-        </div>
-    </div>
-</div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Your AI-Powered <span class="highlight">Grant Assistant</span></h1>
+                <p>Transform your funding ideas into professional grant proposals with intelligent conversation and expert guidance.</p>
+            </div>
+        </section>
 
-<!-- Success Stories Section -->
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">🏆</div>
-        <div class="assistant-info">
-            <h2>Grant Writing Success Stories</h2>
-            <p>Real examples of how our AI assistant helps secure funding</p>
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 30px;">
-        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #28a745;">
-            <h4 style="color: #155724; margin-bottom: 10px;">Community Health Initiative - $75,000 Grant Secured</h4>
-            <p style="color: #155724; line-height: 1.6;">A local nonprofit used our AI assistant to develop a comprehensive community health program proposal, successfully securing funding from the CDC for diabetes prevention services. The AI helped structure their needs assessment, develop evidence-based interventions, and create a robust evaluation framework.</p>
-        </div>
-        
-        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #f1f8ff 100%); padding: 25px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
-            <h4 style="color: #1565c0; margin-bottom: 10px;">Educational Technology Project - $125,000 Grant Awarded</h4>
-            <p style="color: #1565c0; line-height: 1.6;">A rural school district leveraged our platform to craft a compelling proposal for digital learning resources, resulting in a successful application to the Department of Education. The AI assisted in developing sustainability plans, budget justifications, and measurable student outcomes.</p>
-        </div>
-        
-        <div style="background: linear-gradient(135deg, #fff3e0 0%, #fff8f0 100%); padding: 25px; border-radius: 15px; border-left: 4px solid #ff9800;">
-            <h4 style="color: #e65100; margin-bottom: 10px;">Environmental Conservation - $200,000 Multi-Year Grant</h4>
-            <p style="color: #e65100; line-height: 1.6;">An environmental organization used our AI to develop a multi-year watershed restoration proposal, successfully obtaining funding from the EPA. The assistant helped create detailed project timelines, stakeholder engagement plans, and long-term impact assessments.</p>
-        </div>
-    </div>
-</div>
-
-<!-- Grant Types Guide -->
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">🗂️</div>
-        <div class="assistant-info">
-            <h2>Types of Grants We Help With</h2>
-            <p>Comprehensive assistance across all major funding categories</p>
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 30px;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-            <div style="border: 2px solid #667eea; border-radius: 15px; padding: 20px;">
-                <h4 style="color: #667eea; margin-bottom: 15px;">🏛️ Federal Grants</h4>
-                <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
-                    <li>National Science Foundation (NSF)</li>
-                    <li>Department of Education</li>
-                    <li>Department of Health & Human Services</li>
-                    <li>Environmental Protection Agency</li>
-                    <li>Department of Agriculture</li>
-                </ul>
-            </div>
-            
-            <div style="border: 2px solid #28a745; border-radius: 15px; padding: 20px;">
-                <h4 style="color: #28a745; margin-bottom: 15px;">🏢 Foundation Grants</h4>
-                <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
-                    <li>Bill & Melinda Gates Foundation</li>
-                    <li>Ford Foundation</li>
-                    <li>Robert Wood Johnson Foundation</li>
-                    <li>Local Community Foundations</li>
-                    <li>Corporate Foundation Programs</li>
-                </ul>
-            </div>
-            
-            <div style="border: 2px solid #dc3545; border-radius: 15px; padding: 20px;">
-                <h4 style="color: #dc3545; margin-bottom: 15px;">🏛️ State & Local Grants</h4>
-                <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
-                    <li>State Department Programs</li>
-                    <li>Municipal Grant Opportunities</li>
-                    <li>County-Level Funding</li>
-                    <li>Regional Development Grants</li>
-                    <li>Special District Funding</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Grant Writing Process -->
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">⚙️</div>
-        <div class="assistant-info">
-            <h2>Our Grant Writing Process</h2>
-            <p>Step-by-step guidance from concept to submission</p>
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 30px;">
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px;">
-                <div style="background: #667eea; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">1</div>
-                <div>
-                    <h4 style="color: #333; margin-bottom: 5px;">Project Assessment & Planning</h4>
-                    <p style="color: #555; line-height: 1.6;">Our AI analyzes your project goals, target population, and funding needs to create a comprehensive strategy tailored to your specific objectives and organizational capacity.</p>
-                </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px;">
-                <div style="background: #28a745; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">2</div>
-                <div>
-                    <h4 style="color: #333; margin-bottom: 5px;">Funder Research & Alignment</h4>
-                    <p style="color: #555; line-height: 1.6;">We help identify the most suitable funding opportunities by analyzing funder priorities, requirements, and past giving patterns to maximize your chances of success.</p>
-                </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px;">
-                <div style="background: #dc3545; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">3</div>
-                <div>
-                    <h4 style="color: #333; margin-bottom: 5px;">Proposal Development</h4>
-                    <p style="color: #555; line-height: 1.6;">Our AI guides you through crafting compelling narratives, developing logical frameworks, creating detailed budgets, and ensuring all requirements are met with professional quality.</p>
-                </div>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px;">
-                <div style="background: #ffc107; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem;">4</div>
-                <div>
-                    <h4 style="color: #333; margin-bottom: 5px;">Review & Optimization</h4>
-                    <p style="color: #555; line-height: 1.6;">Final review process includes compliance checking, narrative refinement, budget verification, and submission preparation to ensure your proposal meets all funder requirements.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- FAQ Section -->
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">❓</div>
-        <div class="assistant-info">
-            <h2>Frequently Asked Questions</h2>
-            <p>Common questions about our grant writing services</p>
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 30px;">
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 4px solid #667eea;">
-                <h4 style="color: #333; margin-bottom: 10px;">How does the AI grant writing assistant work?</h4>
-                <p style="color: #555; line-height: 1.6;">Our AI analyzes your project description, organizational information, and funding goals to generate professional grant proposal sections including problem statements, objectives, methodologies, budgets, and evaluation plans. The system draws from a vast database of successful proposals and funder requirements to create customized content.</p>
-            </div>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 4px solid #28a745;">
-                <h4 style="color: #333; margin-bottom: 10px;">What types of organizations can use this service?</h4>
-                <p style="color: #555; line-height: 1.6;">Our platform serves nonprofits, educational institutions, healthcare organizations, research facilities, community groups, and government agencies. Whether you're a small grassroots organization or a large institution, our AI adapts to your specific needs and organizational capacity.</p>
-            </div>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 4px solid #dc3545;">
-                <h4 style="color: #333; margin-bottom: 10px;">How much time does it typically take to complete a proposal?</h4>
-                <p style="color: #555; line-height: 1.6;">With our AI assistance, most users can complete a comprehensive grant proposal in 2-4 hours instead of the typical 20-40 hours required for traditional grant writing. The exact time depends on project complexity and the amount of supporting documentation needed.</p>
-            </div>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 4px solid #ffc107;">
-                <h4 style="color: #333; margin-bottom: 10px;">What is the success rate of AI-generated proposals?</h4>
-                <p style="color: #555; line-height: 1.6;">Organizations using our AI-assisted grant writing service report a 35% higher success rate compared to traditional methods. This improvement comes from better alignment with funder priorities, more compelling narratives, and comprehensive compliance with application requirements.</p>
-    <!-- Blog/News Section -->
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">📰</div>
-        <div class="assistant-info">
-            <h2>Grant Writing News & Updates</h2>
-            <p>Latest trends, opportunities, and insights in grant funding</p>
-        </div>
-    </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
-        <article style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 10px;">Federal Funding Increases for 2024</h3>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">January 15, 2024</p>
-            <p style="color: #555; line-height: 1.6;">The federal government has announced significant increases in funding for education, healthcare, and environmental programs. New opportunities include expanded STEM education grants, community health initiatives, and climate resilience projects with simplified application processes.</p>
-        </article>
-        
-        <article style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 10px;">AI in Grant Writing: Best Practices</h3>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">December 28, 2023</p>
-            <p style="color: #555; line-height: 1.6;">Learn how artificial intelligence is revolutionizing the grant writing process. From automated research to intelligent proposal structuring, AI tools are helping organizations create more competitive applications while reducing time and costs.</p>
-        </article>
-        
-        <article style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
-            <h3 style="color: #333; margin-bottom: 10px;">Foundation Giving Trends Report</h3>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">December 20, 2023</p>
-            <p style="color: #555; line-height: 1.6;">Private foundation giving reached record highs in 2023, with increased focus on social justice, mental health, and educational equity. Understanding these trends can help organizations better align their proposals with funder priorities.</p>
-        </article>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
-</div>
-            <div class="categories">
-                <div class="category" onclick="selectCategory('nonprofit')">
-                    <div class="category-icon">🏛️</div>
-                    <h3>Nonprofit & Community</h3>
-                    <p>Social services, community development, charitable organizations</p>
-                </div>
-                <div class="category" onclick="selectCategory('education')">
-                    <div class="category-icon">🎓</div>
-                    <h3>Education & Research</h3>
-                    <p>Schools, universities, research projects, educational programs</p>
-                </div>
-                <div class="category" onclick="selectCategory('health')">
-                    <div class="category-icon">🏥</div>
-                    <h3>Health & Medical</h3>
-                    <p>Healthcare initiatives, medical research, public health</p>
-                </div>
-                <div class="category" onclick="selectCategory('environmental')">
-                    <div class="category-icon">🌱</div>
-                    <h3>Environmental</h3>
-                    <p>Sustainability, conservation, climate change, green technology</p>
-                </div>
-            </div>
-
-            <div class="assistant-message">
-                <div class="message-avatar">🤖</div>
-                <div class="message-content">
-                    Hello! I'm your Grant Assistant. I can help you create professional grant proposals for any type of project. Click on a grant type above or simply describe your project in detail below. What kind of funding are you looking for?
-                </div>
-            </div>
-
-            {% if error %}
-            <div class="error-message">
-                {{ error }}
-            </div>
-            {% endif %}
-
-            <form method="POST" action="{{ url_for('generate_grant_response') }}" id="grantForm">
-                <div class="form-container">
-                    <div class="quick-actions">
-                        <span class="quick-action" onclick="addQuickText('I need help writing a problem statement for')">Problem Statement</span>
-                        <span class="quick-action" onclick="addQuickText('I need a budget justification for')">Budget Justification</span>
-                        <span class="quick-action" onclick="addQuickText('I need an evaluation plan for')">Evaluation Plan</span>
-                        <span class="quick-action" onclick="addQuickText('I need a methodology section for')">Methodology</span>
+        <div class="main-content container">
+            <div class="main-card" id="assistant-tool">
+                <div class="section-header">
+                    <div class="section-avatar">🤖</div>
+                    <div class="section-info">
+                        <h2>Welcome to the Grant Assistant</h2>
+                        <p>Let's get started. Choose a category or describe your project below.</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <textarea 
-                            name="prompt" 
-                            id="prompt" 
-                            placeholder="Describe your project in detail. Include information about your organization, target population, objectives, and what type of grant section you need help with..."
-                            required
-                            oninput="updateCharCount()"
-                        ></textarea>
-                        <div class="char-counter">
-                            <span id="charCount">0</span> characters
+                <div class="categories">
+                    <div class="category" onclick="selectCategory('nonprofit')">
+                        <div class="category-icon">🏛️</div>
+                        <h3>Nonprofit & Community</h3>
+                        <p>Social services, community development, charitable organizations</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('education')">
+                        <div class="category-icon">🎓</div>
+                        <h3>Education & Research</h3>
+                        <p>Schools, universities, research projects, educational programs</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('health')">
+                        <div class="category-icon">🏥</div>
+                        <h3>Health & Medical</h3>
+                        <p>Healthcare initiatives, medical research, public health</p>
+                    </div>
+                    <div class="category" onclick="selectCategory('environmental')">
+                        <div class="category-icon">🌱</div>
+                        <h3>Environmental</h3>
+                        <p>Sustainability, conservation, climate change, green technology</p>
+                    </div>
+                </div>
+
+                <div class="assistant-message">
+                    <div class="message-avatar">💡</div>
+                    <div class="message-content">
+                        Hello! I can help you create professional grant proposals. Click a category above, use a quick-start button, or describe your project in detail below.
+                    </div>
+                </div>
+
+                {% if error %}
+                <div class="error-message">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('generate_grant_response') }}" id="grantForm">
+                    <div class="form-container">
+                        <div class="quick-actions">
+                            <span class="quick-action" onclick="addQuickText('I need help writing a problem statement for')">Problem Statement</span>
+                            <span class="quick-action" onclick="addQuickText('I need a budget justification for')">Budget Justification</span>
+                            <span class="quick-action" onclick="addQuickText('I need an evaluation plan for')">Evaluation Plan</span>
+                            <span class="quick-action" onclick="addQuickText('I need a methodology section for')">Methodology</span>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="prompt" id="prompt" placeholder="Describe your project in detail. Include information about your organization, target population, objectives, and what type of grant section you need help with..." required oninput="updateCharCount()"></textarea>
+                            <div class="char-counter">
+                                <span id="charCount">0</span> characters
+                            </div>
+                        </div>
+
+                        <div class="submit-container">
+                            <a href="{{ url_for('templates_page') }}" class="btn btn-secondary">Use Templates</a>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span>Generate Proposal</span>
+                                <span>→</span>
+                            </button>
                         </div>
                     </div>
+                </form>
 
-                    <div class="submit-container">
-                        <a href="{{ url_for('templates_page') }}" class="btn btn-secondary">Use Templates</a>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">
-                            <span>Generate Proposal</span>
-                            <span>→</span>
-                        </button>
+                <div class="loading" id="loadingDiv">
+                    <div class="spinner"></div>
+                    <p>Generating your grant proposal content...</p>
+                </div>
+            </div>
+
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">📚</div>
+                    <div class="section-info">
+                        <h2>Grant Writing Resources & Tips</h2>
+                        <p>Expert guidance to help you succeed in securing funding.</p>
                     </div>
                 </div>
-            </form>
+                <div class="info-grid">
+                    <div class="info-card-item">
+                        <h3>🎯 Writing Winning Proposals</h3>
+                        <p>Learn the essential elements of successful grant proposals, including crafting compelling narratives, developing strong problem statements, and presenting clear objectives.</p>
+                    </div>
+                    <div class="info-card-item">
+                        <h3>💰 Budget Planning Strategies</h3>
+                        <p>Master the art of budget creation with detailed justifications, cost-effectiveness analysis, and sustainability planning that demonstrates fiscal responsibility.</p>
+                    </div>
+                    <div class="info-card-item">
+                        <h3>📊 Evaluation & Metrics</h3>
+                        <p>Develop comprehensive evaluation plans with measurable outcomes, data collection methods, and reporting frameworks that prove your project's impact.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">🏆</div>
+                    <div class="section-info">
+                        <h2>Grant Writing Success Stories</h2>
+                        <p>Real examples of how our AI assistant helps secure funding.</p>
+                    </div>
+                </div>
+                <div class="process-list">
+                    <div class="success-story health">
+                        <h4>Community Health Initiative - $75,000 Grant Secured</h4>
+                        <p>A nonprofit used our AI to develop a comprehensive proposal, successfully securing CDC funding for diabetes prevention. The AI helped structure their needs assessment and evaluation framework.</p>
+                    </div>
+                    <div class="success-story education">
+                        <h4>Educational Technology Project - $125,000 Grant Awarded</h4>
+                        <p>A school district leveraged our platform to craft a compelling proposal for digital learning resources, resulting in a successful application to the Department of Education.</p>
+                    </div>
+                     <div class="success-story environment">
+                        <h4>Environmental Conservation - $200,000 Multi-Year Grant</h4>
+                        <p>An organization used our AI to develop a multi-year watershed restoration proposal, successfully obtaining EPA funding. The assistant helped create detailed project timelines and impact assessments.</p>
+                    </div>
+                </div>
+            </section>
 
-            <div class="loading" id="loadingDiv">
-                <div class="spinner"></div>
-                <p>Generating your grant proposal content...</p>
-            </div>
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">🗂️</div>
+                    <div class="section-info">
+                        <h2>Types of Grants We Help With</h2>
+                        <p>Comprehensive assistance across all major funding categories.</p>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="grant-type-card grant-type-federal">
+                        <h4>🏛️ Federal Grants</h4>
+                        <ul>
+                            <li>National Science Foundation (NSF)</li>
+                            <li>Department of Education</li>
+                            <li>Health & Human Services (HHS)</li>
+                            <li>Environmental Protection Agency (EPA)</li>
+                        </ul>
+                    </div>
+                    <div class="grant-type-card grant-type-foundation">
+                        <h4>🏢 Foundation Grants</h4>
+                        <ul>
+                            <li>Bill & Melinda Gates Foundation</li>
+                            <li>Ford Foundation</li>
+                            <li>Local Community Foundations</li>
+                            <li>Corporate Foundation Programs</li>
+                        </ul>
+                    </div>
+                    <div class="grant-type-card grant-type-state">
+                        <h4>🏛️ State & Local Grants</h4>
+                        <ul>
+                            <li>State Department Programs</li>
+                            <li>Municipal Grant Opportunities</li>
+                            <li>County-Level Funding</li>
+                            <li>Regional Development Grants</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">⚙️</div>
+                    <div class="section-info">
+                        <h2>Our Grant Writing Process</h2>
+                        <p>Step-by-step guidance from concept to submission.</p>
+                    </div>
+                </div>
+                <div class="process-list">
+                    <div class="process-step">
+                        <div class="process-step-number step-1">1</div>
+                        <div class="process-step-content">
+                            <h4>Project Assessment & Planning</h4>
+                            <p>Our AI analyzes your goals and funding needs to create a tailored strategy.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number step-2">2</div>
+                        <div class="process-step-content">
+                            <h4>Funder Research & Alignment</h4>
+                            <p>We help identify suitable funding opportunities by analyzing funder priorities and requirements.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number step-3">3</div>
+                        <div class="process-step-content">
+                            <h4>Proposal Development</h4>
+                            <p>Our AI guides you in crafting compelling narratives, logical frameworks, and detailed budgets.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number step-4">4</div>
+                        <div class="process-step-content">
+                            <h4>Review & Optimization</h4>
+                            <p>A final review ensures compliance, refines the narrative, and prepares your proposal for submission.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="main-card">
+                 <div class="section-header">
+                    <div class="section-avatar">🔍</div>
+                    <div class="section-info">
+                        <h2>Find Real Grants Near You</h2>
+                        <p>Search for active funding opportunities based on your needs.</p>
+                    </div>
+                </div>
+                <form id="liveSearchForm">
+                    <input type="text" id="liveQuery" placeholder="e.g., 'Youth education' or 'Environmental'" required>
+                    <input type="text" id="liveLocation" placeholder="e.g., 'Lawton, OK' or 'Oklahoma'">
+                    <button type="submit" class="btn btn-primary">Search Grants</button>
+                </form>
+                <div id="liveResults"><p>Enter search terms above to find live grants.</p></div>
+            </section>
+
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">❓</div>
+                    <div class="section-info">
+                        <h2>Frequently Asked Questions</h2>
+                        <p>Answers to common questions about our grant writing services.</p>
+                    </div>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h4>How does the AI grant writing assistant work?</h4>
+                        <p>Our AI analyzes your project info to generate professional grant sections. It uses a vast database of successful proposals and funder requirements to create customized, high-quality content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What types of organizations can use this service?</h4>
+                        <p>Our platform serves nonprofits, schools, healthcare organizations, research facilities, and government agencies. It adapts to your specific needs, regardless of organization size.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How much time can I save?</h4>
+                        <p>Users typically complete a comprehensive proposal in 2-4 hours, a significant reduction from the 20-40 hours often required for traditional grant writing, depending on project complexity.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What is the success rate of AI-generated proposals?</h4>
+                        <p>Organizations using our service report a 35% higher success rate compared to traditional methods, thanks to better funder alignment, compelling narratives, and compliance checks.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="main-card">
+                <div class="section-header">
+                    <div class="section-avatar">📰</div>
+                    <div class="section-info">
+                        <h2>Grant Writing News & Updates</h2>
+                        <p>Latest trends, opportunities, and insights in grant funding.</p>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <article class="news-article">
+                        <h3>Federal Funding Increases for 2024</h3>
+                        <p class="date">January 15, 2024</p>
+                        <p>The federal government has announced significant funding increases for education, healthcare, and environmental programs, with simplified application processes.</p>
+                    </article>
+                    <article class="news-article">
+                        <h3>AI in Grant Writing: Best Practices</h3>
+                        <p class="date">December 28, 2023</p>
+                        <p>Learn how AI is revolutionizing grant writing, from automated research to intelligent proposal structuring, helping organizations create more competitive applications.</p>
+                    </article>
+                    <article class="news-article">
+                        <h3>Foundation Giving Trends Report</h3>
+                        <p class="date">December 20, 2023</p>
+                        <p>Private foundation giving reached record highs, with increased focus on social justice, mental health, and educational equity. Align your proposals with these trends.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="main-card">
+                 <div class="section-header">
+                    <div class="section-avatar">🔒</div>
+                    <div class="section-info">
+                        <h2>Privacy Policy & Data Security</h2>
+                        <p>Your sensitive grant information is protected.</p>
+                    </div>
+                </div>
+                <div class="privacy-content">
+                    <h3>Information Collection and Use</h3>
+                    <p>Grant Genius Hub collects information you provide to generate comprehensive grant applications. We use this information exclusively to provide our AI-powered grant writing services and improve our platform's effectiveness.</p>
+                    <h3>Data Security and Protection</h3>
+                    <p>We implement comprehensive security measures including end-to-end encryption, secure data transmission, and strict access controls. All data is processed through secure, SOC 2 compliant servers with regular security audits.</p>
+                    <h3>Confidentiality</h3>
+                    <p>We maintain absolute confidentiality. Your grant proposals, research data, and related materials are never shared with third parties without your explicit consent, ensuring your competitive advantage.</p>
+                    <h3>User Rights and Data Management</h3>
+                    <p>You maintain complete control over your data with rights to access, update, export, or delete your information and materials at any time through tools within our platform.</p>
+                    <h3>Contact Information</h3>
+                    <p>For questions, contact our support team at <a href="mailto:info@grantgeniushub.com">info@grantgeniushub.com</a> or call 720-306-1898.</p>
+                </div>
+            </section>
         </div>
+    </main>
 
-        <hr style="margin: 50px 0; border: 1px solid rgba(255,255,255,0.2);">
-        <h2 style="color: white; margin-bottom: 10px;">Find Real Grants Near You</h2>
-        <form id="liveSearchForm" style="margin-bottom: 30px;">
-            <input type="text" id="liveQuery" placeholder="What kind of grant?" required style="padding: 10px; width: 40%; border-radius: 10px; border: none; margin-right: 10px;">
-            <input type="text" id="liveLocation" placeholder="City or State" style="padding: 10px; width: 25%; border-radius: 10px; border: none; margin-right: 10px;">
-            <button type="submit" class="btn btn-primary">Search Grants</button>
-        </form>
-        <div id="liveResults" style="background: white; border-radius: 15px; padding: 20px;"></div>
+    <div class="walking-ai" id="walkingAI">
+        <div class="speech-bubble" id="speechBubble">Hello! I'm your Grant Assistant! 👋</div>
+        <div class="ai-character-body">
+            <div class="ai-head">
+                <div class="ai-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="ai-mouth"></div>
+            </div>
+            <div class="ai-legs-container">
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+            </div>
+            <div class="ai-shadow"></div>
+        </div>
     </div>
 
     <script>
+        // --- ALL ORIGINAL JAVASCRIPT FUNCTIONS ARE PRESERVED ---
+        
         function updateCharCount() {
             const textarea = document.getElementById('prompt');
             const charCount = document.getElementById('charCount');
@@ -907,24 +1057,24 @@
 
         function selectCategory(category) {
             const textarea = document.getElementById('prompt');
-            let prompt = '';
+            let promptText = '';
             
             switch(category) {
                 case 'nonprofit':
-                    prompt = 'I need help writing a grant proposal for a nonprofit organization focused on ';
+                    promptText = 'I need help writing a grant proposal for a nonprofit organization focused on ';
                     break;
                 case 'education':
-                    prompt = 'I need help writing a grant proposal for an educational project that ';
+                    promptText = 'I need help writing a grant proposal for an educational project that ';
                     break;
                 case 'health':
-                    prompt = 'I need help writing a grant proposal for a health/medical initiative that ';
+                    promptText = 'I need help writing a grant proposal for a health/medical initiative that ';
                     break;
                 case 'environmental':
-                    prompt = 'I need help writing a grant proposal for an environmental project that ';
+                    promptText = 'I need help writing a grant proposal for an environmental project that ';
                     break;
             }
             
-            textarea.value = prompt;
+            textarea.value = promptText;
             textarea.focus();
             updateCharCount();
         }
@@ -936,18 +1086,15 @@
             updateCharCount();
         }
 
-        // Handle form submission
         document.getElementById('grantForm').addEventListener('submit', function(e) {
             const submitBtn = document.getElementById('submitBtn');
             const loadingDiv = document.getElementById('loadingDiv');
             
-            // Show loading state
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>Generating...</span>';
             loadingDiv.classList.add('active');
         });
 
-        // Check for template from localStorage (from templates page)
         window.addEventListener('load', function() {
             const selectedTemplate = localStorage.getItem('selectedTemplate');
             if (selectedTemplate) {
@@ -963,277 +1110,162 @@
             const location = document.getElementById('liveLocation').value;
             const resultsDiv = document.getElementById('liveResults');
             
-            resultsDiv.innerHTML = `<p style="color:#666">Searching...</p>`;
+            resultsDiv.innerHTML = `<p>Searching...</p>`;
             try {
                 const res = await fetch(`/search?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
                 const data = await res.json();
-                if (!data.items) {
-                    resultsDiv.innerHTML = "<p>No results found.</p>";
+                if (!data.items || data.items.length === 0) {
+                    resultsDiv.innerHTML = "<p>No results found. Try broader search terms.</p>";
                     return;
                 }
                 resultsDiv.innerHTML = data.items.map(item => `
-                    <div style="margin-bottom: 20px;">
-                        <h3><a href="${item.link}" target="_blank" style="color:#667eea;">${item.title}</a></h3>
-                        <p style="color:#333;">${item.snippet}</p>
+                    <div>
+                        <h3><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a></h3>
+                        <p>${item.snippet}</p>
                     </div>
                 `).join('');
             } catch (error) {
-                resultsDiv.innerHTML = "<p style='color:red;'>Error fetching results. Try again.</p>";
+                resultsDiv.innerHTML = "<p style='color:#991B1B;'>Error fetching results. Please try again.</p>";
             }
         });
+        
+        // --- WALKING AI SCRIPT (ORIGINAL FUNCTIONALITY) ---
+        class WalkingAI {
+            constructor() {
+                this.character = document.getElementById('walkingAI');
+                this.speechBubble = document.getElementById('speechBubble');
+                if (!this.character) return;
 
-        // Initialize character count
-        updateCharCount();
-    </script>
-<div class="main-card">
-    <div class="assistant-header">
-        <div class="assistant-avatar">🔒</div>
-        <div class="assistant-info">
-            <h2>Privacy Policy & Data Security</h2>
-            <p>Comprehensive protection for your sensitive grant information</p>
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 30px;">
-        <h3 style="color: #333; margin-bottom: 15px;">Information Collection and Use</h3>
-        <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-            Grant Genius Hub collects and processes information you provide when creating grant proposals, including project descriptions, organizational details, budget information, target demographics, and other relevant data necessary to generate comprehensive grant applications. We use this information exclusively to provide our AI-powered grant writing services, improve our platform's effectiveness, enhance user experience, and ensure the quality of generated proposals meets professional standards required by funding organizations.
-        </p>
-        
-        <h3 style="color: #333; margin-bottom: 15px;">Data Security and Protection Measures</h3>
-        <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-            We implement comprehensive security measures including end-to-end encryption, secure data transmission protocols, multi-factor authentication, and strict access controls to protect your sensitive information. All data is processed through secure, SOC 2 compliant servers with regular security audits and penetration testing. We maintain detailed logs of all data access and modifications, ensuring complete transparency and accountability in our data handling practices.
-        </p>
-        
-        <h3 style="color: #333; margin-bottom: 15px;">Grant Writing Process and Confidentiality</h3>
-        <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-            Our AI-powered grant writing process analyzes your input to generate tailored proposals, budget justifications, evaluation plans, sustainability frameworks, and other essential grant components. We maintain absolute confidentiality regarding your project details, funding requirements, strategic plans, and organizational information. Your grant proposals, research data, and related materials are never shared with third parties, competitors, or other users without explicit written consent, ensuring your competitive advantage throughout the funding process.
-        </p>
-        
-        <h3 style="color: #333; margin-bottom: 15px;">User Rights and Data Management</h3>
-        <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-            You maintain complete control over your data with rights to access, update, export, or delete your personal information and grant-related materials at any time. We provide comprehensive tools within our platform to manage your data preferences, download your content, and request complete data removal. Our retention policies ensure that information is kept only as long as necessary to provide services and comply with legal obligations, after which it is securely deleted using DoD-approved methods.
-        </p>
-        
-        <h3 style="color: #333; margin-bottom: 15px;">Contact Information and Support</h3>
-        <p style="color: #555; line-height: 1.6;">
-            For questions about this privacy policy, data handling practices, security measures, or to exercise your privacy rights, contact our dedicated support team at <a href="mailto:info@grantgeniushub.com" style="color: #667eea;">info@grantgeniushub.com</a> or call 720-306-1898. Our privacy team is available Monday through Friday, 9 AM to 6 PM EST, and is committed to addressing all privacy concerns promptly and transparently, ensuring you feel confident about how your sensitive information is handled throughout the grant writing process.
-        </p>
-    </div>
-</div>
-<div class="walking-ai" id="walkingAI">
-    <div class="speech-bubble" id="speechBubble">
-        Hello! I'm your Grant Assistant! 👋
-    </div>
-    <div class="ai-character-body">
-        <div class="ai-head">
-            <div class="ai-eyes">
-                <div class="eye"></div>
-                <div class="eye"></div>
-            </div>
-            <div class="ai-mouth"></div>
-        </div>
-        <div class="ai-torso">
-            <div class="ai-arms">
-                <div class="arm left"></div>
-                <div class="arm right"></div>
-            </div>
-        </div>
-        <div class="ai-legs-container">
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-        </div>
-        <div class="ai-shadow"></div>
-    </div>
-</div>
+                this.currentX = Math.random() * (window.innerWidth - 100);
+                this.currentY = Math.random() * (window.innerHeight - 150) + 50;
+                this.targetX = this.currentX;
+                this.targetY = this.currentY;
+                this.speed = 1.5;
+                this.isMoving = false;
+                this.direction = 1;
 
-<!-- ADD THIS JAVASCRIPT RIGHT BEFORE THE CLOSING </body> TAG -->
+                this.messages = [
+                    "Hi! Need help with grants? 💰", "I can help you write proposals! 📝", "Looking for funding opportunities? 🔍",
+                    "Click me to get started! 🚀", "Grant writing made easy! ✨", "Let's secure your funding! 🎯",
+                    "Need a budget plan? 📊", "I'm here to help! 😊"
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.character.style.left = this.currentX + 'px';
+                this.character.style.top = this.currentY + 'px';
+                
+                setTimeout(() => this.startWalking(), 2000);
+                this.showMessage();
+                
+                this.character.addEventListener('click', () => this.onCharacterClick());
+                setInterval(() => this.moveToRandomPosition(), 8000);
+                setInterval(() => this.showMessage(), 10000);
+                window.addEventListener('resize', () => this.handleResize());
+            }
+            
+            startWalking() {
+                this.moveToRandomPosition();
+            }
+            
+            moveToRandomPosition() {
+                const margin = 50;
+                this.targetX = Math.random() * (window.innerWidth - margin - 100) + margin;
+                this.targetY = Math.random() * (window.innerHeight - 200) + 50;
+                this.startMoving();
+            }
+            
+            startMoving() {
+                if (this.isMoving) return;
+                this.isMoving = true;
+                
+                const moveStep = () => {
+                    if (!this.isMoving) return;
+                    
+                    const deltaX = this.targetX - this.currentX;
+                    const deltaY = this.targetY - this.currentY;
+                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-<script>
-class WalkingAI {
-    constructor() {
-        this.character = document.getElementById('walkingAI');
-        this.speechBubble = document.getElementById('speechBubble');
-        this.currentX = Math.random() * (window.innerWidth - 100);
-        this.currentY = Math.random() * (window.innerHeight - 150) + 50;
-        this.targetX = this.currentX;
-        this.targetY = this.currentY;
-        this.speed = 1;
-        this.isMoving = false;
-        this.direction = 1; // 1 for right, -1 for left
-        
-        this.messages = [
-            "Hi! Need help with grants? 💰",
-            "I can help you write proposals! 📝",
-            "Looking for funding opportunities? 🔍",
-            "Click me to get started! 🚀",
-            "Grant writing made easy! ✨",
-            "Let's secure your funding! 🎯",
-            "Need a budget plan? 📊",
-            "I'm here to help! 😊",
-            "Ready to write grants? 💪",
-            "Funding success awaits! 🌟"
-        ];
-        
-        this.init();
-    }
-    
-    init() {
-        this.character.style.left = this.currentX + 'px';
-        this.character.style.top = this.currentY + 'px';
-        
-        // Start moving after a delay
-        setTimeout(() => {
-            this.startWalking();
-        }, 2000);
-        
-        // Show initial message
-        this.showMessage();
-        
-        // Click handler
-        this.character.addEventListener('click', () => {
-            this.onCharacterClick();
-        });
-        
-        // Regular movement
-        setInterval(() => {
-            this.moveToRandomPosition();
-        }, 5000);
-        
-        // Regular messages
-        setInterval(() => {
-            this.showMessage();
-        }, 8000);
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            this.handleResize();
-        });
-    }
-    
-    startWalking() {
-        this.moveToRandomPosition();
-    }
-    
-    moveToRandomPosition() {
-        const margin = 100;
-        this.targetX = Math.random() * (window.innerWidth - margin - 100) + margin;
-        this.targetY = Math.random() * (window.innerHeight - 200) + 50;
-        
-        this.startMoving();
-    }
-    
-    startMoving() {
-        if (this.isMoving) return;
-        
-        this.isMoving = true;
-        const deltaX = this.targetX - this.currentX;
-        const deltaY = this.targetY - this.currentY;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        if (distance < 5) {
-            this.isMoving = false;
-            return;
+                    if (distance < 5) {
+                        this.isMoving = false;
+                        return;
+                    }
+
+                    this.direction = deltaX >= 0 ? 1 : -1;
+                    this.character.style.transform = `scaleX(${this.direction})`;
+
+                    const stepX = (deltaX / distance) * this.speed;
+                    const stepY = (deltaY / distance) * this.speed;
+
+                    this.currentX += stepX;
+                    this.currentY += stepY;
+                    
+                    this.character.style.left = this.currentX + 'px';
+                    this.character.style.top = this.currentY + 'px';
+                    
+                    requestAnimationFrame(moveStep);
+                };
+                
+                requestAnimationFrame(moveStep);
+            }
+            
+            showMessage() {
+                if (this.speechBubble.classList.contains('show')) return;
+                const message = this.messages[Math.floor(Math.random() * this.messages.length)];
+                this.speechBubble.textContent = message;
+                this.speechBubble.classList.add('show');
+                this.character.classList.add('talking');
+                
+                setTimeout(() => {
+                    this.speechBubble.classList.remove('show');
+                    this.character.classList.remove('talking');
+                }, 4000);
+            }
+            
+            onCharacterClick() {
+                this.isMoving = false;
+                this.speechBubble.textContent = "Let's write a great proposal!";
+                this.speechBubble.classList.add('show');
+                this.character.classList.add('talking');
+
+                const promptTextarea = document.getElementById('prompt');
+                if (promptTextarea) {
+                    promptTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        promptTextarea.focus();
+                        if (promptTextarea.value === '') {
+                             promptTextarea.value = "Hi! I'd like help with ";
+                        }
+                    }, 500);
+                }
+                
+                setTimeout(() => {
+                    this.speechBubble.classList.remove('show');
+                    this.character.classList.remove('talking');
+                    setTimeout(() => this.moveToRandomPosition(), 2000);
+                }, 4000);
+            }
+            
+            handleResize() {
+                const maxX = window.innerWidth - 100;
+                const maxY = window.innerHeight - 150;
+                
+                if (this.currentX > maxX) this.currentX = maxX;
+                if (this.currentY > maxY) this.currentY = maxY;
+                if (this.currentX < 0) this.currentX = 0;
+                if (this.currentY < 50) this.currentY = 50;
+                
+                this.character.style.left = this.currentX + 'px';
+                this.character.style.top = this.currentY + 'px';
+            }
         }
         
-        // Set direction based on movement
-        this.direction = deltaX > 0 ? 1 : -1;
-        this.character.style.transform = `scaleX(${this.direction})`;
-        
-        const stepX = (deltaX / distance) * this.speed;
-        const stepY = (deltaY / distance) * this.speed;
-        
-        const moveStep = () => {
-            if (!this.isMoving) return;
-            
-            this.currentX += stepX;
-            this.currentY += stepY;
-            
-            this.character.style.left = this.currentX + 'px';
-            this.character.style.top = this.currentY + 'px';
-            
-            const newDistance = Math.sqrt(
-                (this.targetX - this.currentX) ** 2 + 
-                (this.targetY - this.currentY) ** 2
-            );
-            
-            if (newDistance > 5) {
-                requestAnimationFrame(moveStep);
-            } else {
-                this.isMoving = false;
-            }
-        };
-        
-        requestAnimationFrame(moveStep);
-    }
-    
-    showMessage() {
-        const message = this.messages[Math.floor(Math.random() * this.messages.length)];
-        this.speechBubble.textContent = message;
-        this.speechBubble.classList.add('show');
-        this.character.classList.add('talking');
-        
-        setTimeout(() => {
-            this.speechBubble.classList.remove('show');
-            this.character.classList.remove('talking');
-        }, 3000);
-    }
-    
-    onCharacterClick() {
-        // Stop current movement
-        this.isMoving = false;
-        
-        // Show special message
-        this.speechBubble.textContent = "Hi! I'm your Grant Assistant! How can I help you today?";
-        this.speechBubble.classList.add('show');
-        this.character.classList.add('talking');
-        
-        // Redirect to chat or main form
-        setTimeout(() => {
-            const promptTextarea = document.getElementById('prompt');
-            if (promptTextarea) {
-                promptTextarea.focus();
-                promptTextarea.value = "Hi! I'd like help with ";
-            }
-        }, 1000);
-        
-        setTimeout(() => {
-            this.speechBubble.classList.remove('show');
-            this.character.classList.remove('talking');
-            // Resume walking
-            setTimeout(() => {
-                this.moveToRandomPosition();
-            }, 2000);
-        }, 4000);
-    }
-    
-    handleResize() {
-        const maxX = window.innerWidth - 100;
-        const maxY = window.innerHeight - 150;
-        
-        if (this.currentX > maxX) this.currentX = maxX;
-        if (this.currentY > maxY) this.currentY = maxY;
-        if (this.currentX < 0) this.currentX = 0;
-        if (this.currentY < 50) this.currentY = 50;
-        
-        this.character.style.left = this.currentX + 'px';
-        this.character.style.top = this.currentY + 'px';
-    }
-}
-
-// Initialize the walking AI when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    new WalkingAI();
-});
-
-// Fallback initialization
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        new WalkingAI();
-    });
-} else {
-    new WalkingAI();
-}
-</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new WalkingAI();
+            updateCharCount(); // Initialize character count on load
+        });
+    </script>
 </body>
 </html>
